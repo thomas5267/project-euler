@@ -1,0 +1,2498 @@
+0, 1, 0, 0, 1, 0, 0, 0, 0, 1,
+1, 0, 0, 0, 0, 0, 1, 0, 1, 0,
+0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
+0, 0, 0, 0, 0, 0, 1, 0, 0, 0,
+1, 0, 0, 0, 0, 0, 1, 0, 0, 1,
+0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
+0, 1, 0, 1, 1, 0, 0, 0, 0, 0,
+0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+1, 0, 0, 0, 1, 0, 0, 0, 0, 0,
+
+--------------------------------------------------------------------------------
+
+Consider the following graph (hereby "The Graph") defined by the following set
+of edges.
+
+0 - 1
+0 - 4
+0 - 9
+1 - 6
+2 - 5
+3 - 6
+4 - 9
+6 - 4
+8 - 1
+
+The 2-5 edge forms a disconnected component of The Graph.
+
+Hence, consider the Reduced Graph defined by the following set of edges.
+
+0 - 1
+0 - 4
+0 - 9
+1 - 6
+3 - 6
+4 - 9
+6 - 4
+8 - 1
+
+The Reduced Graph has 7 vertices and 8 edges.
+
+Suppose we made the Reduced Graph bipartite by adding or subtracting some
+vertices and some edges.
+How would that help in solving the problem?
+
+Let suppose we have a modified Reduced Graph with 5+5 vertices, then two
+solutions can be generated from the two vertex sets.
+Let the two vertex sets be A and B.
+
+One solution is (A u {2}, B u {5}).
+The other solution is (A u {5}, B u {2}).
+
+
+Now suppose we have a modified Reduced Graph with m+n vertices, m, n < 5.
+How many solutions can be generated from this bipartite graph?
+
+--------------------------------------------------------------------------------
+
+The above does not seem like a fruitful line of thought.
+
+Consider all valid arrangements of numbers on the two dice.
+Can we find some "kernel" such that every arrangement must consists of the
+kernel with some extra numbers added on?
+In addition, is the kernel unique?
+
+Firstly, note that the 2-5 edge is a disconnected component of The Graph.
+Hence, it can be added in afterwards.
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------
+
+Suppose we have 2 rows of 5 slots and we seek to fill it.
+Does choosing a number on the first row affect the choices on second row?
+
+Choose 0 with the intent of not choosing 1, 4 or 9 on the second row
+
+0 1 4 9 X
+X X X X X
+
+Deduce
+
+0 1 4 9 X
+0 X X X X
+
+Deduce
+
+0 1 4 9 X
+0 6 8 X X
+
+Deduce
+
+0 1 4 9 X
+0 6 8 4 X
+
+Deduce
+
+0 1 4 9 3
+0 6 8 4 X
+
+This is a valid fill.
+
+
+Choose 0
+Then all vertices connected to 0 must be assigned?
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------
+
+01, 04, 09, 16, 25, 36, 49, 64, and 81
+
+012345689
+Interestingly 7 is not required.
+
+Something something bipartite graph?
+
+Consider a graph (hereby "The Graph") with the following edges:
+
+0 - 1
+0 - 4
+0 - 9
+1 - 6
+2 - 5
+3 - 6
+4 - 9
+6 - 4
+8 - 1
+
+We seek to construct a "minimal" bipartite graph which encapsulates the
+relationship between edges.
+
+0 6 4 8    2
+1 4 9 3    5
+
+Consider the following edges:
+0 - 4
+4 - 9
+9 - 0
+
+These three edges form an odd cycle.
+Hence, a minimal bipartite graph must have some numbers duplicated on both
+sides
+
+We note that the number 2 and 5 are isolated from the rest of the graph.
+Hence, a minimal bipartite graph can be constructed by first finding the
+minimal bipartite graph of the edge set sans the 2-5 edge then append
+the isolated 2-5 edge as a disconnected component to minimal graph.
+
+0 - 1
+0 - 4
+0 - 9
+6 - 1
+6 - 4
+6 - 3
+8 - 1
+9' - 4
+
+is a bipartite graph with 8 vertices and 8 edges.
+The 9 vertex is duplicated to make it bipartite odd cycle.
+
+
+What are all the odd cycles of the edge set?
+
+0 - 1
+0 - 4
+0 - 9
+1 - 6
+2 - 5
+3 - 6
+4 - 9
+6 - 4
+8 - 1
+
+0 - 9
+9 - 4
+4 - 0
+
+0 - 9
+9 - 4
+4 - 6
+6 - 1
+1 - 0
+
+By visual inspection these are the only two odd cycles of The Graph.
+
+To make The Graph bipartite, we must introduce extra vertices to break the odd
+cycles.
+1. Choose a vertex
+2. Add a vertex with the same number
+3. Choose an edge which breaks one of the two cycles
+4. Swap one end of the edge from the original vertex to the new vertex
+5. Repeat until all cycles broken. Should only need to repeat one time only.
+
+Something something choose edges from one or the other but not both
+
+
+The vertices involved in the two odd cycles are:
+
+0 4 9 for the 3-cycle
+
+0 1 4 6 9 for the 5-cycle
+
+
+4 cut 4 - 9
+9 cut 9 - 4 or 9 - 0
+
+
+--------------------------------------------------------------------------------
+
+Excluding the 2-5 edge the graph has 7 vertices and 8 edges.
+Call this graph the Reduced Graph.
+The question is equivalent to making the Reduced Graph bipartite by add 3
+vertices and some edges.
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------
+
+Examples
+
+Reduced Graph, 7 vertices, 8 edges
+
+0 - 1
+0 - 4
+0 - 9
+1 - 6
+3 - 6
+4 - 9
+6 - 4
+8 - 1
+
+
+
+
+Modifying 1 vertex
+
+
+Modifying the 0 vertex
+
+4+4 vertices, 8 edges
+
+0 - 1
+0 - 4
+1 - 6
+3 - 6
+4 - 9
+6 - 4
+8 - 1
+0' - 9
+
+0 6 8 9
+0' 1 3 4
+
+
+0 - 9
+1 - 6
+3 - 6
+4 - 9
+6 - 4
+8 - 1
+0' - 1
+0' - 4
+
+0 1 3 4
+0' 6 8 9
+
+WTF?
+
+
+Modifying the 4 vertex
+
+4+4 vertices, 8 edges
+
+0 - 1
+0 - 4
+0 - 9
+1 - 6
+3 - 6
+6 - 4
+8 - 1
+4' - 9
+
+0 4' 6 8
+1 3 4 9
+
+
+0 - 1
+0 - 9
+1 - 6
+3 - 6
+4 - 9
+8 - 1
+0 - 4'
+6 - 4'
+
+0 4 6 8
+1 3 4' 9
+
+WTF?
+
+
+Modifying the 9 vertex
+
+4+4 vertices, 8 edges
+
+0 - 1
+0 - 4
+0 - 9
+1 - 6
+3 - 6
+6 - 4
+8 - 1
+4 - 9'
+
+0 6 8 9'
+1 3 4 9
+
+
+0 - 1
+0 - 4
+1 - 6
+3 - 6
+4 - 9
+6 - 4
+8 - 1
+0 - 9'
+
+0 6 8 9
+1 3 4 9'
+
+
+
+
+Modifying 2 vertices
+
+
+Modifying the 0 and 1 vertex
+
+5+4 vertices, 8 edges
+
+0 - 9
+1 - 6
+3 - 6
+4 - 9
+6 - 4
+8 - 1
+0' - 1'
+0' - 4
+
+0 1 1' 3 4
+0' 6 8 9
+
+
+0 - 4
+1 - 6
+3 - 6
+4 - 9
+6 - 4
+8 - 1
+0' - 1'
+0' - 9
+
+0 1' 6 8 9
+0' 1 3 4
+
+
+
+
+Am I looking at this wrong?
+
+Two odd cycles in the Reduced Graph
+Make the graph bipartite by choosing an edge from each cycle and modifying it.
+The chosen edges can be the same for the two cycles.
+
+
+Modifying 1 edge
+
+Modifying 0-9 edge
+
+0 - 1
+0 - 4
+1 - 6
+3 - 6
+4 - 9
+6 - 4
+8 - 1
+0' - 9
+
+0 6 8 9
+0' 1 3 4
+
+
+0 - 1
+0 - 4
+1 - 6
+3 - 6
+4 - 9
+6 - 4
+8 - 1
+0 - 9'
+
+0 6 8 9
+1 3 4 9'
+
+
+Modifying 4-9 edge
+
+0 - 1
+0 - 4
+0 - 9
+1 - 6
+3 - 6
+6 - 4
+8 - 1
+4' - 9
+
+0 4' 6 8
+1 3 4 9
+
+
+0 - 1
+0 - 4
+0 - 9
+1 - 6
+3 - 6
+6 - 4
+8 - 1
+4 - 9'
+
+0 6 8 9'
+1 3 4 9
+
+
+
+
+Modifying 2 edges
+
+Modifying 0-1 and 0-4 edge
+
+0'-1  0'-4
+0-1'  0-4'
+0'-1' 0'-4'
+
+
+0'-4 and 0'-1    Valid
+0'-4 and 0-1'    Valid
+0'-4 and 0'-1'   Valid
+
+0-4' and 0'-1    Valid
+0-4' and 0-1'    Valid
+0-4' and 0'-1'   Valid
+
+0'-4' and 0'-1   Valid
+0'-4' and 0-1'   Valid
+0'-4' and 0'-1'  Valid
+
+
+0'-4 and 0''-1   Valid
+0'-4 and 0''-1'  Valid
+
+0'-4' and 0''-1  Valid
+0'-4' and 0''-1' Invalid, too many vertices
+
+
+Do all of the combinations have the same set representation?
+If not, how many set representations are there?
+
+0 - 9
+1 - 6
+3 - 6
+4 - 9
+6 - 4
+8 - 1
+
+0 1 3 4
+6 8 9
+
+
+0 - 1
+0 - 4
+
+
+0'-4 and 0'-1    Valid
+
+0 1 3 4
+6 8 9 0
+
+
+0'-4 and 0-1'    Valid but not minimal
+
+0 1 3 4 1
+6 8 9 0
+
+
+0'-4 and 0'-1'   Valid but not minimal, a more specific version of 0'-4 and 0'-1
+
+0 1 3 4 1
+6 8 9 0
+
+
+0-4' and 0'-1    Valid but not minimal, a more specific version of 0'-4 and 0'-1
+
+0 1 3 4
+6 8 9 4 0
+
+
+0-4' and 0-1'    Valid but maybe not minimal
+
+0 1 3 4
+6 8 9 4 1
+
+
+0-4' and 0'-1'   Valid but not minimal, a more specific version of 0-4' and 0-1'
+
+0 1 3 4 0
+6 8 9 4 1
+
+
+0'-4' and 0'-1   Valid but not minimal, a more specific version of 0'-4 and 0'-1
+
+0 1 3 4 4
+6 8 9 0
+
+
+0'-4' and 0-1'   Valid but not minimal, a more specific version of 0'-4 and 0'-1
+
+0 1 3 4 4
+6 8 9 1 0
+
+
+0'-4' and 0'-1'  Valid but not minimal, a more specific version of 0-4' and 0-1'
+
+0 1 3 4 0
+6 8 9 1 4
+
+
+0'-4 and 0''-1   Valid but not minimal, a more specific version of 0'-4 and 0'-1
+
+0 1 3 4
+6 8 9 0 0
+
+
+0'-4 and 0''-1'  Valid but not minimal, a more specific version of 0'-4 and 0'-1
+
+0 1 3 4 1
+6 8 9 0 0
+
+
+0'-4' and 0''-1  Valid but not minimal, a more specific version of 0'-4 and 0'-1
+
+0 1 3 4 0
+6 8 9 0 4
+
+
+Can we make an order which respects the minimality of the combinations?
+
+0'-4 and 0'-1    Valid
+0'-4 and 0-1'    Valid but not minimal
+0'-4 and 0'-1'   Valid but not minimal, a more specific version of 0'-4 and 0'-1
+0-4' and 0'-1    Valid but not minimal, a more specific version of 0'-4 and 0'-1
+0-4' and 0-1'    Valid but maybe not minimal
+0-4' and 0'-1'   Valid but not minimal, a more specific version of 0-4' and 0-1'
+0'-4' and 0'-1   Valid but not minimal, a more specific version of 0'-4 and 0'-1
+0'-4' and 0-1'   Valid but not minimal, a more specific version of 0'-4 and 0'-1
+0'-4' and 0'-1'  Valid but not minimal, a more specific version of 0-4' and 0-1'
+0'-4 and 0''-1   Valid but not minimal, a more specific version of 0'-4 and 0'-1
+0'-4 and 0''-1'  Valid but not minimal, a more specific version of 0'-4 and 0'-1
+0'-4' and 0''-1  Valid but not minimal, a more specific version of 0'-4 and 0'-1
+
+Sort by added vertex count?
+
+
+0 1 3 4
+6 8 9
+
+0 - 1    No
+0 - 4    No
+0 - 9    Yes
+1 - 6    Yes
+3 - 6    Yes
+4 - 9    Yes
+6 - 4    Yes
+8 - 1    Yes
+
+
+0 1 3 4
+0 6 8 9
+
+0 - 1    Yes
+0 - 4    Yes
+0 - 9    Yes
+1 - 6    Yes
+3 - 6    Yes
+4 - 9    Yes
+6 - 4    Yes
+8 - 1    Yes
+
+
+0 6 8 9
+1 3 4 9
+
+0 - 1    Yes
+0 - 4    Yes
+0 - 9    Yes
+1 - 6    Yes
+3 - 6    Yes
+4 - 9    Yes
+6 - 4    Yes
+8 - 1    Yes
+
+
+
+
+
+--------------------------------------------------------------------------------
+
+Four minimal combinations found so far.
+
+0 1 3 4
+0 6 8 9
+
+0 1 3 6
+0 4 6 8
+
+0 4 6 8
+1 3 4 9
+
+0 6 8 9
+1 3 4 9
+
+0 1 6
+0 1 3 4 8
+
+0 6
+1 3
+is common across all Four combinations.
+
+
+0 6
+1 3
+
+0 - 1    Yes
+0 - 4    No
+0 - 9    No
+1 - 6    Yes
+3 - 6    Yes
+4 - 9    No
+6 - 4    No
+8 - 1    Yes
+
+
+Is it true that all valid combinations of dice are of the form?
+0 6 X X X
+1 3 X X X
+
+No. Consider the following.
+0 6 3 8 X
+1 4 6 X X
+
+0 - 1    Yes
+0 - 4    Yes
+0 - 9    Yes if 6 is flipped
+1 - 6    Yes
+3 - 6    Yes
+4 - 9    Yes if 6 is flipped
+6 - 4    Yes
+8 - 1    Yes
+
+
+0 6 8 X X
+1 4 0 3 X
+
+
+0 1 3 6
+0 4 6 8
+
+0 - 1    Yes
+0 - 4    Yes
+0 - 9    Yes if 6 is flipped
+1 - 6    Yes
+3 - 6    Yes
+4 - 9    Yes if 6 is flipped
+6 - 4    Yes
+8 - 1    Yes
+
+--------------------------------------------------------------------------------
+
+Replace the vertex with its complement?
+
+E.g.
+0 1 3 4
+0 6 8 9
+
+0 1 3 4
+1 4 9 6 8 9
+
+0 1 3 4
+1 4 6 8 9
+
+--------------------------------------------------------------------------------
+
+0 6 8
+0 1 3 4
+
+0 6 8
+1 3 4 6
+
+1 4 6
+0 3 6 8
+
+are three minimal combinations where none of the combinations are subset of
+each other.
+
+
+However, their union
+0 3 6 8
+0 1 3 4 6
+is a valid (non-minimal) combination.
+
+--------------------------------------------------------------------------------
+
+What is an appropriate order on incompleted and completed dice set?
+The idea is that if we can construct an approrpiate order, then we can search
+through the set of all dice sets efficiently by pruning unnecessary search with
+the order.
+
+Would the default order be sufficient? Namely:
+1. Compare die first by the smallest element, then the second smallest element...
+2. Compare the smaller die (according to 1) first before the bigger die.
+
+The problem with this order is that the dice set that is most incomplete may not
+be the dice set which is minimal under this ordering. E.g.
+0 6 8
+0 1 3 4
+is the most incomplete dice set among
+0 6 8 X X
+0 1 3 4 X
+but the smallest element according to this order is
+0 0 0 6 8
+0 0 1 3 4
+
+How about this order:
+1. Compare the size of the dice set.
+2. Compare first die first by the smallest element, then the second smallest
+   element... The first die is the smaller of the two dice according to this
+   order.
+3. Compare the first die first before the second die.
+
+There is still a problem. Consider the following two dice set.
+It is clear that they are both minimal in the sense that no elements can be remove
+from any of these sets without invalidating the dice sets.
+
+0 6 8
+0 1 3 4
+
+0 6 8
+1 3 4 6
+
+However, one is not a subset of another.
+
+Am I thinking this wrong?
+What if we count the combinations of this
+0 6 8
+0 1 3 4
+and add the much fewer minimal but non-subset combinations of dice set on top
+of it.
+
+
+Which of the three minimal combinations should this
+0 3 6 8
+0 1 3 4 6
+be assigned to?
+
+The three minimal combinations are:
+
+0 6 8
+0 1 3 4
+
+0 6 8
+1 3 4 6
+
+0 3 6 8
+1 4 6
+
+
+We could assign it to
+0 3 6 8
+1 4 6
+but we have to add 3 to the second die to create
+0 6 8
+0 1 3 4
+
+The union of the two set is
+0 3 6 8
+0 1 3 4 6
+The other union is has 6 elements on one of the die thus is too big
+
+
+How do we assign the dice set
+0 6 8 A B
+1 4 C D E
+to the three minimal combinations?
+
+WLOG we demand A <= B, C <= D <= E.
+
+If A == 3, B >= 8, C == 6 then assign to
+0 3 6 8
+1 4 6
+
+If A < 3, ???
+
+This is not fruitful.
+
+--------------------------------------------------------------------------------
+-- 
+-- How about we start with the simpliest version of the problem?
+-- 
+-- 2d6 constructing 01, how many combinations?
+-- 
+-- 0 X X X X X
+-- 1 X X X X X
+-- 
+-- This is still too difficult. The numbers on the dice are assumed to be in
+-- ascending order. It is unclear how many ascending sequences start from 0 using
+-- only 0 to 9 exists.
+-- 
+-- 
+-- Lets try something even simplier
+-- 
+-- 2d2 constructing 01, how many combinations?
+-- 
+-- 0 X
+-- 1 X
+-- 
+-- 10 combinations on top row, 10 combinations on bottom row, 100 combinations total.
+-- Verified by brute force.
+-- 
+-- 
+-- Now, consider 2d3 and 01.
+-- 
+-- 0 X X
+-- 1 X X
+-- 
+-- This is equivalent to the number of 2d2.
+-- X X
+-- X X
+-- 
+-- First, how many 1d2?
+-- X X
+-- 
+-- There are 10 combinations where the two numbers are the same and they are
+-- weighted fully.
+-- For all other combinations, X1 X2 and X2 X1 are considered to be the same so
+-- they are half-weighted.
+-- There are 90/2 = 45 of them.
+-- Total is 45 + 10 = 55.
+-- 
+-- Back to 2d2.
+-- Pretend instead we have
+-- Y Y
+-- , where Y is one of the 55 combinations of X X.
+-- In other words, 2d2 with numbers from 0 to 9 is in bijection with 1d2 with
+-- numbers from 1 to 55.
+-- By a similar argument, there are 55*55 = 3025 combinations in total.
+-- 55 of them involves two same Y.
+-- 55*54 = 2970 of them invovles two different Y.
+-- Y1 Y2 and Y2 Y1 are considered the same.
+-- So there are 2970/2 + 55 = 1540 of them.
+-- 
+-- In general, for d2 with n choices on each face, there are
+-- n*(n-1)/2 + n = n*(n+1)/2 of them.
+-- 
+-- Therefore,
+-- 0 X X
+-- 1 X X
+-- has 1540 combinations.
+-- Verified by brute force.
+-- 
+-- 
+-- Now consider the case of 2d4 constructing 01 and 25 before considering the more
+-- complicated case of 2d4 constructing 01 and 04.
+-- Are there simply 1540 * 2 = 3080 of them since 01 and 25 have no digits in
+-- common?
+-- Brute force returned 5851.
+-- 5851 is a prime for what is worth.
+-- 
+-- 
+-- Perhaps 2d4 is too difficult.
+-- Consider 2d3 dice sets where both 01 and 25 can be constructed.
+-- How many of them are there?
+-- Brute force returned 198.
+-- 
+-- 100 2d2 dice set constructing 01.
+-- 100 2d2 dice set constructing 25.
+-- 
+-- By brute force we have the following:
+-- 200 - 2 = 198 2d3 dice set constructing 01 and 25.
+-- 394 2d4 dice set constructing 01, 25, and 36.
+-- 784 2d5 dice set constructing 01, 25, and 36, 49.
+-- 
+-- 198 2d3 dice set constructing 01 and 25.
+-- Take a 2d2 constructing 01 and a 2d2 constructing 25 with the same kicker,
+-- i.e.
+-- X Y
+-- X Y
+-- where XX is one of 01 or 25 and YY is the kicker in the question.
+-- 
+-- We can glue them together as follows.
+-- X X Y
+-- X X Y
+-- 
+-- If YY is not one of 01, 10, 25, or 52, then there are two combinations of X's.
+-- 0 2     0 5
+-- 1 5 and 1 2
+-- 96*2 = 192
+-- 
+-- 198 - 192 = 6 combinations left.
+-- Divide 01, 10, 25, 52 into two classes, 01 and 10, and 25 and 52.
+-- Each of these classes must have 3 combinations.
+-- 
+-- 0 2 2
+-- 1 5 5
+-- 
+-- 0 2 5
+-- 1 5 2
+-- 
+-- 0 5 5
+-- 1 2 2
+-- 
+-- Which is true by brute force but why?
+-- 
+-- 
+-- Now back to 2d4 constructing 01 and 25.
+-- 
+-- By inclusion-exclusion principle,
+-- | 2d4 constructing 01 and 25 | = | 2d4 constructing 01 | + | 2d4 constructing 25 |
+--                                - | 2d4 constructing 01 *or* 25 |
+-- 
+-- The number of 2d4 constructing 01 *or* 25 is perhaps even harder to calculate
+-- than the number of 2d4 constructing 01 and 25.
+-- This does not seem useful at all.
+-- 
+-- Using the same idea of finding two 2d3 dice sets and gluing them together.
+-- 
+-- | 2d4 constructing 01 and 25 | = 2 * | 2d2 not constructing 01 or 25 |
+--                                + crap
+-- 
+-- First consider | 2d2 not constructing 01 or 25 |.
+-- | 2d2 not constructing 01 or 25 | = | 2d2 |
+--                                   - | 2d2 constructing 01 |
+--                                   - | 2d2 constructing 25 |
+--                                   + | 2d2 constructing 01 and 25 |
+-- 
+--                                   = 1540
+--                                   - 100
+--                                   - 100
+--                                   + | 2d2 constructing 01 and 25 |
+-- 
+-- | 2d2 constructing 01 and 25 | = 2
+-- 
+-- 0 2
+-- 1 5
+-- 
+-- 0 5
+-- 1 2
+-- 
+-- | 2d2 not constructing 01 or 25 | = 1342
+-- 
+-- Hence,
+-- 
+-- | 2d4 constructing 01 and 25 | = 2 * | 2d2 not constructing 01 or 25 |
+--                                + crap
+-- 
+-- 5851 = 2 * 1342
+--      + crap
+-- crap = 3167
+-- 
+-- To find out the nature of crap, consider the 2d3 version of the above.
+-- 
+-- | 2d3 constructing 01 and 25 | = 2 * | 2d1 not constructing 01 or 25 |
+--                                + crap
+-- 
+-- 198 = 96*2
+--     + 6
+-- 
+-- crap in the 2d3 case = 6
+-- 
+-- X X Y
+-- X X Y
+-- 
+-- Lets look at a specific example.
+-- Suppose we have a 2d2 constructing both 01 and 25, e.g.
+-- 0 2
+-- 1 5,
+-- how can it be glued to 2d2 of the form
+-- 2 Y
+-- 5 Y
+-- resulting in a 2d3 constructing both 01 and 25?
+-- 
+-- We first note that YY is in fact severely restricted.
+-- We have counted the combinations for YY not equal to 01, 10, 25, or 52.
+-- For YY equal to 01, 10, 25, or 52, we have:
+-- 
+-- 0 0 2
+-- 1 1 5
+-- 
+-- 0 0 5
+-- 1 1 2
+-- 
+-- 0 1 2
+-- 0 1 5
+-- 
+-- 0 2 2
+-- 1 5 5
+-- 
+-- 0 2 5
+-- 1 2 5
+-- 
+-- 0 5 5
+-- 1 2 2
+-- 
+-- 
+-- Consider another interpretation of the gluing of 2d2.
+-- 
+-- Take a 2d1 and glue it to each of the two 2d2
+-- 
+-- 0 2     0 5
+-- 1 5 and 1 2
+-- 
+-- For example gluing 3 6 to the two 2d2
+-- 
+-- 0 2 3     0 5 3
+-- 1 5 6 and 1 2 6
+-- 
+-- Now consider gluing 0 1 to the two 2d2
+-- 
+-- 0 2 0     0 5 0
+-- 1 5 1 and 1 2 1
+-- 
+-- but there is also the following combination
+-- 
+-- 0 2 1
+-- 1 5 0
+-- 
+-- 
+-- Actually even in the 2d3 case the formula is incorrect but the answer is
+-- correct by sheer luck.
+-- 
+-- | 2d3 constructing 01 and 25 | = 2 * | 2d1 not constructing 01 or 25 |
+--                                + crap
+-- 
+-- There are only 53 2d1 not constructing 01 or 25.
+-- 
+-- Lets look an example to demonstrate what is wrong.
+-- There are actually 4 combinations when gluing 3 6 to the two 2d2.
+-- 
+-- 0 2  0 5
+-- 1 5  1 2
+-- 
+-- 0 2 3  0 5 3
+-- 1 5 6  1 2 6
+-- 
+-- 0 2 6  0 5 6
+-- 1 5 3  1 2 3
+-- 
+-- Now consider gluing 3 3 to the two 2d2.
+-- 
+-- 0 2 3  0 5 3
+-- 1 5 3  1 2 3
+-- 
+-- Because of the internal symmetry of 3 3 there are only 2 possible combinations.
+-- 
+-- There are 43*4 + 10*2 = 192 combinations
+-- 
+-- 
+-- Now consider the crap.
+-- 
+-- There are actually 3 combinations when gluing 0 1 to the two 2d2.
+-- 
+-- 0 2 0  0 5 0
+-- 1 5 1  1 2 1
+-- 
+-- 0 2 1  0 5 1
+-- 1 5 0  1 2 0
+-- 
+-- 0 2 1     0 5 1
+-- 1 5 0 and 1 2 0 are the same.
+-- 
+-- There are also 3 combinations when gluing 2 5 to the two 2d2.
+-- 
+-- 0 2 2  0 5 2
+-- 1 5 5  1 2 5
+-- 
+-- 0 2 5  0 5 5
+-- 1 5 2  1 2 2
+-- 
+-- 0 2 5     0 5 2
+-- 1 5 2 are 1 2 5 the same.
+-- 
+-- crap = 6 as desired.
+-- 
+-- It is unclear how having adding 0 1 or 2 5 only reduces the number of
+-- combinations by 1 instead of 2.
+-- 
+-- A C E  A C F  A D E  A D F
+-- B D F  B D E  B C F  B C E
+-- 
+-- All 4 combinations are different
+-- 
+-- A C A  A C B  A D A  A D B
+-- B D B  B D A  B C B  B C A
+-- 
+-- A C B  A D B
+-- B D A  B C A
+-- are the same.
+-- 
+-- To make this more clear,
+-- A B C  A B D
+-- B A D  B A C
+-- are the same because
+-- A B   B A
+-- B A = A B
+-- 
+-- 
+-- Now back to 2d4 constructing 01 and 25.
+-- 
+-- | 2d4 constructing 01 and 25 | = 2 * | 2d2 not constructing 01 or 25 |
+--                                + crap
+-- 
+-- The 2d2 can be partitioned into multiple classes
+-- 1. Those who do not construct 01 or 25 and have no internal symmetry
+-- 2. Those who do not construct 01 or 25 but have internal symmetry
+-- 3. Those who construct 01 or 25
+-- 
+-- --------------------------------------------------------------------------------
+-- NOTE: It doesn't seem to have anything to do with internal symmetry
+-- --------------------------------------------------------------------------------
+-- 
+-- Class 1.
+-- 
+-- Arrangement of 4 numbers with no repetition = 10*9*8*7 = 5040
+-- Can we simply divide it by 4! to get the arrangement of 2d2 with no internal
+-- symmetry?
+-- 
+-- Can we do this for d2?
+-- Arrangement of 2 numbers with no repetition = 10*9 = 90
+-- 90 / 2! = 45 which is correct
+-- 
+-- Then 10*9*8*7 / 4! = 210
+-- 
+-- But there are only 4 arrangements of numbers which yields the same 2d2.
+-- Consider the following example
+-- 
+-- 3 6
+-- 4 7
+-- 
+-- 3 6
+-- 7 4
+-- 
+-- 6 3
+-- 4 7
+-- 
+-- 6 3
+-- 7 4
+-- 
+-- There should be 2*n! arrangements for 2dn.
+-- 
+-- 5040/4 = 1260
+-- 
+-- 
+-- 0 2  0 5
+-- 1 5  1 2
+-- 
+-- 3 6  3 7  4 6  4 7  3 4  6 7
+-- 4 7  4 6  3 7  3 6  6 7  3 4
+-- 
+-- 
+-- 
+-- 
+-- Start with the following example
+-- 
+-- 3 4 6 7
+-- 4 3 6 7
+-- 6 4 3 7
+-- 4 6 3 7
+-- 6 3 4 7
+-- 3 6 4 7
+-- 7 6 4 3
+-- 6 7 4 3
+-- 6 4 7 3
+-- 7 4 6 3
+-- 4 7 6 3
+-- 4 6 7 3
+-- 7 3 4 6
+-- 3 7 4 6
+-- 3 4 7 6
+-- 7 4 3 6
+-- 4 7 3 6
+-- 4 3 7 6
+-- 7 3 6 4
+-- 3 7 6 4
+-- 3 6 7 4
+-- 7 6 3 4
+-- 6 7 3 4
+-- 6 3 7 4
+-- 
+-- al3ldkp2lldjpo
+-- 
+-- 3 4 6 7
+-- 6 4 3 7
+-- 3 7 6 4
+-- 6 7 3 4
+-- 
+-- 4 3 6 7
+-- 6 3 4 7
+-- 6 7 4 3
+-- 4 7 6 3
+-- 
+-- 3 6 4 7
+-- 4 6 3 7
+-- 3 7 4 6
+-- 4 7 3 6
+-- 
+-- 3 4 7 6
+-- 7 4 3 6
+-- 3 6 7 4
+-- 7 6 3 4
+-- 
+-- 4 3 7 6
+-- 4 6 7 3
+-- 7 6 4 3
+-- 7 3 4 6
+-- 
+-- 6 3 7 4
+-- 6 4 7 3
+-- 7 4 6 3
+-- 7 3 6 4
+-- 
+-- 
+-- 0 2  0 5
+-- 1 5  1 2
+-- 
+-- 3 6  3 7  4 6  4 7  3 4  6 7
+-- 4 7  4 6  3 7  3 6  6 7  3 4
+-- 
+-- 
+-- 0 2 3 6
+-- 1 5 4 7
+-- 
+-- 0 2 3 7
+-- 1 5 4 6
+-- 
+-- 0 2 4 6
+-- 1 5 3 7
+-- 
+-- 0 2 4 7
+-- 1 5 3 6
+-- 
+-- 0 2 3 4
+-- 1 5 6 7
+-- 
+-- 0 2 6 7
+-- 1 5 3 4
+-- 
+-- 
+-- 0 5 3 6
+-- 1 2 4 7
+-- 
+-- 0 5 3 7
+-- 1 2 4 6
+-- 
+-- 0 5 4 6
+-- 1 2 3 7
+-- 
+-- 0 5 4 7
+-- 1 2 3 6
+-- 
+-- 0 5 3 4
+-- 1 2 6 7
+-- 
+-- 0 5 6 7
+-- 1 2 3 4
+-- 
+-- 
+-- Normalised:
+-- 
+-- 0 2 3 6
+-- 1 4 5 7
+-- 
+-- 0 2 3 7
+-- 1 4 5 6
+-- 
+-- 0 2 4 6
+-- 1 3 5 7
+-- 
+-- 0 2 4 7
+-- 1 3 5 6
+-- 
+-- 0 2 3 4
+-- 1 5 6 7
+-- 
+-- 0 2 6 7
+-- 1 3 4 5
+-- 
+-- 
+-- 0 3 5 6
+-- 1 2 4 7
+-- 
+-- 0 3 5 7
+-- 1 2 4 6
+-- 
+-- 0 4 5 6
+-- 1 2 3 7
+-- 
+-- 0 4 5 7
+-- 1 2 3 6
+-- 
+-- 0 3 4 5
+-- 1 2 6 7
+-- 
+-- 0 5 6 7
+-- 1 2 3 4
+-- 
+-- 
+-- 
+-- 
+-- 
+-- 
+-- 
+-- 
+-- 
+-- 
+-- 
+-- 
+-- A C  A D
+-- B D  B C
+-- 
+-- E G  E H  F G  F H
+-- F H  F G  E H  E G
+-- 
+-- 
+-- E G  E H  F G  F H  E F  G H
+-- F H  F G  E H  E G  G H  E F
+-- 
+-- 
+-- A C E G  A C E H  A C F H  A C F G
+-- B D F H  B D F G  B D E G  B D E H
+-- 
+-- A D E G  A D E H  A D F H  A D F G
+-- B C F H  B C F G  B C E G  B C E H
+-- 
+-- 
+-- A C A G  A C A H  A C F H  A C F G
+-- B D F H  B D F G  B D A G  B D A H
+-- 
+-- A D A G  A D A H  A D F H  A D F G
+-- B C F H  B C F G  B C A G  B C A H
+-- 
+-- 
+-- 
+-- E E  E H  F H  F E
+-- F H  F E  E E  E H
+-- 
+-- Arrangement of 4 numbers with no repetition = 10*9*8*7 = 5040
+-- Can we simply divide it by 4! to get the arrangement of 2d2 with no internal
+-- symmetry?
+-- 
+-- Can we do this for d2?
+-- Arrangement of 2 numbers with no repetition = 10*9 = 90
+-- 90 / 2! = 45 which is correct
+-- 
+-- Then 10*9*8*7 / 4! = 210
+-- 
+-- Permutations of E F G H
+-- 
+-- E F G H
+-- F E G H
+-- G F E H
+-- F G E H
+-- G E F H
+-- E G F H
+-- H G F E
+-- G H F E
+-- G F H E
+-- H F G E
+-- F H G E
+-- F G H E
+-- H E F G
+-- E H F G
+-- E F H G
+-- H F E G
+-- F H E G
+-- F E H G
+-- H E G F
+-- E H G F
+-- E G H F
+-- H G E F
+-- G H E F
+-- G E H F
+-- 
+-- 2d2 of E F G H
+-- 
+-- E G  E H  E F
+-- F H  F G  G H
+-- 
+-- 1 3  1 4  1 2
+-- 2 4  2 3  3 4
+-- 
+-- Then 10*9*8*7 / 4! * 3 = 630
+-- 
+-- 
+-- Class 2.
+-- 
+-- Since there are 1540 2d2 in total, this would suggest there are
+-- 1540 - 630 = 910 2d2 with internal symmetry.
+-- 
+-- Arrangement of 4 numbers with only 1 repetition = 10*9*8 = 720
+-- 
+-- E G  E E  E F
+-- E F  F G  G E
+-- 
+-- 1 3  1 1  1 2
+-- 1 2  2 3  1 3
+-- 
+-- 
+-- 
+-- 
+-- 
+--------------------------------------------------------------------------------
+
+How about we start with the simpliest version of the problem?
+
+2d2 constructing 01, how many combinations?
+
+0 X
+1 X
+
+10 combinations on top row, 10 combinations on bottom row, 100 combinations total.
+Verified by brute force.
+
+
+Now, consider 2d3 and 01.
+
+0 A C
+1 B D
+
+This is equivalent to twice the number of 2d2 as 0 1 can be glued to the 2d2
+two ways.
+0 A C  0 B D
+1 B D  1 A C
+
+First, how many 1d2?
+A
+B
+
+We note that there is a surjection from two digit numbers to the set of all 1d2.
+There are 100 two digit numbers.
+There are 10 combinations where the two digits are the same and they are
+weighted fully.
+For all other combinations, A B and B A are considered to be the same so
+they are half-weighted.
+There are 90/2 = 45 of them.
+Total is 45 + 10 = 55.
+
+Back to 2d2.
+Pretend instead we have
+Y
+Z,
+where Y and Z are two of the 55 combinations of 1d2.
+In other words, 2d2 with numbers from 0 to 9 is in bijection with 1d2 with
+numbers from 1 to 55.
+By a similar argument, there are 55*55 = 3025 combinations in total.
+55 of them involves two same Y.
+55*54 = 2970 of them invovles two different Y.
+Y1 Y2 and Y2 Y1 are considered the same.
+So there are 2970/2 + 55 = 1540 of them.
+
+In general, for d2 with n choices on each face, there are
+n*(n-1)/2 + n = n*(n+1)/2 of them.
+
+Therefore,
+0 A C
+1 B D
+has 1540 combinations.
+Verified by brute force.
+
+
+Consider 2d3 dice sets where both 01 and 25 can be constructed.
+How many of them are there?
+Brute force returned 198.
+
+We build a 2d3 constructing 01 and 25 in the following way.
+Take a 2d1 and glue it to each of the two 2d2
+
+0 2  0 5
+1 5  1 2
+
+For example gluing 3 6 to the two 2d2
+
+0 2 3  0 5 3
+1 5 6  1 2 6
+
+0 2 6  0 5 6
+1 5 3  1 2 3
+
+4 combinations
+
+Now consder the edge cases
+Gluing 0 1 to the two 2d2
+
+0 2 0  0 5 0
+1 5 1  1 2 1
+
+0 2 1  0 5 1
+1 5 0  1 2 0
+
+0 2 1  0 5 1
+1 5 0  1 2 0
+are the same 2d3
+
+3 combinations
+
+
+Gluing 2 1 to the two 2d2
+
+0 2 2  0 5 2
+1 5 1  1 2 1
+
+0 2 1  0 5 1
+1 5 2  1 2 2
+
+4 combinations
+
+
+Gluing 1 1 to the two 2d2
+
+0 2 1  0 5 1
+1 5 1  1 2 1
+
+2 combinations
+
+
+There are only 2 possibilities because of the internal symmetry of 1 1.
+
+There are 55 1d2.
+Excluding 0 1 and 2 5 there are 53 of them.
+43 of the d2 has no internal symmetry.
+10 of the d2 has internal symmetry.
+
+4 combinations for gluing d2 without internal symmetry
+2 combinations for gluing d2 with internal symmetry
+3 combinations for gluding 0 1 and 2 5.
+
+4*43 + 2*10 + 3*2 = 198 as required.
+Now back to 2d4 constructing 01 and 25.
+
+
+Now consider the case of 2d4 constructing 01 and 25 before considering the more
+complicated case of 2d4 constructing 01 and 04.
+Brute force returned 5851.
+5851 is a prime for what is worth.
+
+Use the same idea of gluing a 2d2 to the two 2d2.
+There are 1540 2d2.
+
+0 2  0 5
+1 5  1 2
+
+----------------------------------------
+Selected examples
+
+Gluing 3 6 \\ 4 7
+
+0 2 3 6  0 5 3 6
+1 5 4 7  1 2 4 7
+
+0 2 4 7  0 5 4 7
+1 5 3 6  1 2 3 6
+
+4 combinations
+
+
+Gluing 3 0 \\ 4 1
+
+0 2 3 0  0 5 3 0
+1 5 4 1  1 2 4 1
+
+0 2 4 1  0 5 4 1
+1 5 3 0  1 2 3 0
+
+4 combinations
+
+
+Gluing 0 2 \\ 1 5
+
+0 2 0 2  0 5 0 2
+1 5 1 5  1 2 1 5
+
+0 2 1 5  0 5 1 5
+1 5 0 2  1 2 0 2
+
+4 combinations
+
+
+Gluing 0 5 \\ 1 2
+
+0 2 0 5  0 5 0 5
+1 5 1 2  1 2 1 2
+
+0 2 1 2  0 5 1 2
+1 5 0 5  1 2 0 5
+
+4 combinations
+
+This is a big problem.
+The combinations with 0 2 \\ 1 5 and 0 5 \\ 1 2 overlap.
+The two combined together has 5 combinations.
+
+
+Gluing 0 1 \\ 0 1
+
+0 2 0 1  0 5 0 1
+1 5 0 1  1 2 0 1
+
+2 combinations
+
+
+Gluing 0 0 \\ 1 1
+
+0 2 0 0  0 5 0 0
+1 5 1 1  1 2 1 1
+
+0 2 1 1  0 5 1 1
+1 5 0 0  1 2 0 0
+
+4 combinations
+
+
+Gluing 0 0 \\ 0 0
+
+0 2 0 0  0 5 0 0
+1 5 0 0  1 2 0 0
+
+2 combinations
+
+
+Gluing 0 0 \\ 0 1
+
+0 2 0 0  0 5 0 0
+1 5 0 1  1 2 0 1
+
+0 2 0 1  0 5 0 1
+1 5 0 0  1 2 0 0
+
+0 2 0 1 = 0 5 0 1
+1 5 0 0   1 2 0 0
+3 combinations
+
+
+Gluing 2 2 \\ 2 5
+
+0 2 2 2  0 5 2 2
+1 5 2 5  1 2 2 5
+
+0 2 2 5  0 5 2 5
+1 5 2 2  1 2 2 2
+
+0 5 2 2 = 0 2 2 5
+1 2 2 5   1 5 2 2
+3 combinations
+
+
+Why are there three combinations?
+Looking
+0 5 2 2
+1 2 2 5
+as
+0 5 2 2
+1 5 2 2
+we see
+2 2
+2 2
+has symmetry
+
+
+Gluing 0 5 \\ 5 5
+
+0 2 0 5  0 5 0 5
+1 5 5 5  1 2 5 5
+
+0 2 5 5  0 5 5 5
+1 5 0 5  1 2 0 5
+
+4 combinations
+
+0 0 2 5  0 0 5 5
+1 5 5 5  1 2 5 5
+
+0 2 5 5  0 5 5 5
+0 1 5 5  0 1 2 5
+
+
+Gluing 0 1 \\ 1 1
+
+0 2 0 1  0 5 0 1
+1 5 1 1  1 2 1 1
+
+0 2 1 1  0 5 1 1
+1 5 0 1  1 2 0 1
+
+0 2 1 1 = 0 5 1 1
+1 5 0 1   1 2 0 1
+3 combinations
+
+
+Gluing 1 5 \\ 5 5
+
+0 2 1 5  0 5 1 5
+1 5 5 5  1 2 5 5
+
+0 2 5 5  0 5 5 5
+1 5 1 5  1 2 1 5
+
+4 combinations
+
+
+Gluing 1 2 \\ 1 1
+
+0 2 1 2  0 5 1 2
+1 5 1 1  1 2 1 1
+
+0 2 1 1  0 5 1 1
+1 5 1 2  1 2 1 2
+
+0 2 1 1 = 0 5 1 1
+1 5 0 1   1 2 0 1
+3 combinations
+
+
+Gluing 0 0 \\ 1 1
+
+0 2 0 0  0 5 0 0
+1 5 1 1  1 2 1 1
+
+0 2 1 1  0 5 1 1
+1 5 0 0  1 2 0 0
+
+4 combinations
+
+
+Gluing 3 3 \\ 3 4
+
+0 2 3 3  0 5 3 3
+1 5 3 4  1 2 3 4
+
+0 2 3 4  0 5 3 4
+1 5 3 3  1 2 3 3
+
+4 combinations
+
+
+Gluing 0 2 \\ 0 2
+
+0 2 0 2  0 5 0 2
+1 5 0 2  1 2 0 2
+
+2 combinations
+----------------------------------------
+
+How about instead of gluing 2d2 into a 2d2 just glue four d2 together?
+
+0 2
+1 5
+or
+0 5
+1 2
+must be a subdice of any 2d4 constructing 01 and 25.
+
+How many combinations of gluing the four d2 of
+0 2 A C
+1 5 B D
+together?
+
+Assume all the numbers are distinct,
+
+0 2 A C  0 2 A D
+1 5 B D  1 5 B C
+
+0 2 B C  0 2 B D
+1 5 A D  1 5 A C
+
+0 5 A C  0 5 A D
+1 2 B D  1 2 B C
+
+0 5 B C  0 5 B D
+1 2 A D  1 2 A C
+
+8 combinations.
+Bijection with numbers in base 2.
+0 is normal, 1 is flipped.
+000 to 111 has 8 numbers.
+
+
+Now consider gluing the following four d2.
+0 0 2 2
+1 1 5 5
+
+0 0 2 2  0 0 2 5
+1 1 5 5  1 1 5 2
+
+0 0 5 2  0 0 5 5
+1 1 2 5  1 1 2 2
+
+0 1 2 2  0 1 2 5
+1 0 5 5  1 0 5 2
+
+0 1 5 2  0 1 5 5
+1 0 2 5  1 0 2 2
+
+5 combinations.
+
+0 0 5 2  010 = 001
+1 1 2 5
+
+0 1 5 2  110 = 101
+1 0 2 5
+
+0 1 5 5  111 = 100
+1 0 2 2
+
+Split into two parts
+
+0 0     2 2
+1 1 and 5 5
+
+0 0 \\ 1 1:
+UU UD
+
+2 2 \\ 5 5:
+UU UD DD
+
+2*3 = 6 not 5. Where is the problem?
+
+0 0 2 2  UU and UU
+1 1 5 5
+
+0 0 2 5  UU and UD
+1 1 5 2
+
+0 0 5 5  UU and DD
+1 1 2 2
+
+0 1 2 2  UD and UU
+1 0 5 5
+
+0 1 2 5  UD and UD
+1 0 5 2
+
+0 1 5 5  UD and DD
+1 0 2 2
+
+
+UD and UU = UD and DD
+
+To explain this, we note that this representation has a conjugation symmetry.
+E.g. UU and UU is equivalent to DD and DD.
+
+Conjugation of UD and UU = DU and DD = UD and DD
+
+
+Now consider gluing the following four d2.
+0 2 2 2
+1 5 6 7
+
+0 2 2 2  0 2 2 7
+1 5 6 7  1 5 6 2
+
+0 2 6 2  0 2 6 7
+1 5 2 7  1 5 2 2
+
+0 5 2 2  0 5 2 7
+1 2 6 7  1 2 6 2
+
+0 5 6 2  0 5 6 7
+1 2 2 7  1 2 2 2
+
+8 combinations
+
+
+Now consider gluing the following four d2.
+0 2 2 3
+1 5 5 6
+
+0 2 5 3
+1 5 2 3
+
+0 5 5 3
+1 2 2 3
+
+3 combinations
+
+
+2 2 \\ 2 5:
+UU UD DD
+
+3 \\ 3:
+N
+
+3*1 = 3
+
+
+Back to 2d4 constructing 01 and 25.
+
+A few cases:
+1. 0 \\ 1, 2 \\ 5, and two distinct non-symmetrical d2 not equal to 0 \\ 1 or 2 \\ 5.
+2. 0 \\ 1, 2 \\ 5, one non-symmetrical d2 not equal to 0 \\ 1 or 2 \\ 5, one symmetrical d2.
+3. 0 \\ 1, 2 \\ 5, and two identitcal non-symmetrical d2 not equal to 0 \\ 1 or 2 \\ 5.
+4. 0 \\ 1, 2 \\ 5, and two identitcal symmetrical d2 not equal to 0 \\ 1 or 2 \\ 5.
+5. 0 \\ 1, 2 \\ 5, one 0 \\ 1 or 2 \\ 5, one non-symmetrical d2 not equal to 0 \\ 1 or 2 \\ 5.
+6. 0 \\ 1, 2 \\ 5, one 0 \\ 1 or 2 \\ 5, one symmetrical d2.
+
+
+10 symmetrical d2, 45 non-symmetrical d2
+
+Case 1:
+There are 43*42/2 = 903 2d2 composed with two distinct non-symmetrical d2 not
+equal to 0 \\ 1 or 2 \\ 5.
+
+Suppose we choose 3 \\ 6 as the first d2
+How many distinct non-symmetrical d2 can be formed?
+
+ a %a
+
+[ (0,2)
+, (0,3)
+, (0,4)
+, (0,5)
+, (0,6)
+, (0,7)
+, (0,8)
+, (0,9)
+, (1,2)
+, (1,3)
+, (1,4)
+, (1,5)
+, (1,6)
+, (1,7)
+, (1,8)
+, (1,9)
+, (2,3)
+, (2,4)
+, (2,6)
+, (2,7)
+, (2,8)
+, (2,9)
+, (3,4)
+, (3,5)
+, (3,6)
+, (3,7)
+, (3,8)
+, (3,9)
+, (4,5)
+, (4,6)
+, (4,7)
+, (4,8)
+, (4,9)
+, (5,6)
+, (5,7)
+, (5,8)
+, (5,9)
+, (6,7)
+, (6,8)
+, (6,9)
+, (7,8)
+, (7,9)
+, (8,9)
+]
+
+3 6
+6 7
+
+0 2 3 6  0 2 3 7
+1 5 6 7  1 5 6 6
+
+0 2 6 6  0 2 6 7
+1 5 3 7  1 5 3 6
+
+0 5 3 6  0 5 3 7
+1 2 6 7  1 2 6 6
+
+0 5 6 6  0 5 6 7
+1 2 3 7  1 2 3 6
+
+
+3 6
+7 6
+
+0 2 3 6  0 2 7 6
+1 5 7 6  1 5 3 6
+
+0 5 3 6  0 5 7 6
+1 2 7 6  1 2 3 6
+
+
+0 2 3 6  0 2 7 6
+1 5 7 6  1 5 3 6
+
+0 5 3 6  0 5 7 6
+1 2 7 6  1 2 3 6
+
+
+
+
+
+
+
+1540 d2, 55 of them are built from the same d2.
+
+
+Non-symmetrical in the sense that 
+
+An extra (/2) appears because of the following.
+Assuming A <= B, C <= D
+
+The following two choices of two d2 results in the same 2d2.
+A C
+B D
+and exactly one of the following will be a valid 2d2
+A C or A B or D C or D B
+D B    D C    A B    A C
+
+
+Case 2:
+6 combinations per set, (45*44)/2/2 = 445 sets, 3960 combinations in total
+
+A <= B, C <= D
+
+A C
+B C
+
+A C
+C B
+
+A C
+C C
+
+A C
+C C
+
+
+
+The following two choices of two d2 results in the same 2d2.
+A C
+B B
+and exactly one of the following will be a valid 2d2
+A C or A B or B C or B B
+B B    B C    A B    A C
+
+
+
+
+
+
+55 1d2
+1540 2d2
+
+Of the 1540 2d2, only 55 of them have internal symmetry
+Of the rest of 1485 2d2, there are 4 of them that are "problematic".
+The rest of 1481 2d2 have 4 combinations each.
+
+55*2 + 4*x + 3*y = 5851
+x + y + 55 = 1540
+x + y = 1485
+
+55*2 + 4*x + 3*y = 5851
+55*2 + 4*x + 3*(1485-x) = 5851
+x + 3*1485 = 5741
+x = 1286
+y = 199
+
+
+
+The 2d2 can be partitioned into multiple classes
+1. Those who do not construct 01 or 25 and have no internal symmetry
+2. Those who do not construct 01 or 25 but have internal symmetry
+3. Those who construct 01 or 25
+
+--------------------------------------------------------------------------------
+NOTE: It doesn't seem to have anything to do with internal symmetry
+--------------------------------------------------------------------------------
+
+Class 1.
+
+Arrangement of 4 numbers with no repetition = 10*9*8*7 = 5040
+Can we simply divide it by 4! to get the arrangement of 2d2 with no internal
+symmetry?
+
+Can we do this for d2?
+Arrangement of 2 numbers with no repetition = 10*9 = 90
+90 / 2! = 45 which is correct
+
+Then 10*9*8*7 / 4! = 210
+
+But there are only 4 arrangements of numbers which yields the same 2d2.
+Consider the following example
+
+3 6
+4 7
+
+3 6
+7 4
+
+6 3
+4 7
+
+6 3
+7 4
+
+There should be 2*n! arrangements for 2dn.
+
+5040/4 = 1260
+
+
+0 2  0 5
+1 5  1 2
+
+3 6  3 7  4 6  4 7  3 4  6 7
+4 7  4 6  3 7  3 6  6 7  3 4
+
+
+
+
+Start with the following example
+
+3 4 6 7
+4 3 6 7
+6 4 3 7
+4 6 3 7
+6 3 4 7
+3 6 4 7
+7 6 4 3
+6 7 4 3
+6 4 7 3
+7 4 6 3
+4 7 6 3
+4 6 7 3
+7 3 4 6
+3 7 4 6
+3 4 7 6
+7 4 3 6
+4 7 3 6
+4 3 7 6
+7 3 6 4
+3 7 6 4
+3 6 7 4
+7 6 3 4
+6 7 3 4
+6 3 7 4
+
+al3ldkp2lldjpo
+
+3 4 6 7
+6 4 3 7
+3 7 6 4
+6 7 3 4
+
+4 3 6 7
+6 3 4 7
+6 7 4 3
+4 7 6 3
+
+3 6 4 7
+4 6 3 7
+3 7 4 6
+4 7 3 6
+
+3 4 7 6
+7 4 3 6
+3 6 7 4
+7 6 3 4
+
+4 3 7 6
+4 6 7 3
+7 6 4 3
+7 3 4 6
+
+6 3 7 4
+6 4 7 3
+7 4 6 3
+7 3 6 4
+
+
+0 2  0 5
+1 5  1 2
+
+3 6  3 7  4 6  4 7  3 4  6 7
+4 7  4 6  3 7  3 6  6 7  3 4
+
+
+0 2 3 6
+1 5 4 7
+
+0 2 3 7
+1 5 4 6
+
+0 2 4 6
+1 5 3 7
+
+0 2 4 7
+1 5 3 6
+
+0 2 3 4
+1 5 6 7
+
+0 2 6 7
+1 5 3 4
+
+
+0 5 3 6
+1 2 4 7
+
+0 5 3 7
+1 2 4 6
+
+0 5 4 6
+1 2 3 7
+
+0 5 4 7
+1 2 3 6
+
+0 5 3 4
+1 2 6 7
+
+0 5 6 7
+1 2 3 4
+
+
+Normalised:
+
+0 2 3 6
+1 4 5 7
+
+0 2 3 7
+1 4 5 6
+
+0 2 4 6
+1 3 5 7
+
+0 2 4 7
+1 3 5 6
+
+0 2 3 4
+1 5 6 7
+
+0 2 6 7
+1 3 4 5
+
+
+0 3 5 6
+1 2 4 7
+
+0 3 5 7
+1 2 4 6
+
+0 4 5 6
+1 2 3 7
+
+0 4 5 7
+1 2 3 6
+
+0 3 4 5
+1 2 6 7
+
+0 5 6 7
+1 2 3 4
+
+
+
+
+
+
+
+
+
+
+
+
+A C  A D
+B D  B C
+
+E G  E H  F G  F H
+F H  F G  E H  E G
+
+
+E G  E H  F G  F H  E F  G H
+F H  F G  E H  E G  G H  E F
+
+
+A C E G  A C E H  A C F H  A C F G
+B D F H  B D F G  B D E G  B D E H
+
+A D E G  A D E H  A D F H  A D F G
+B C F H  B C F G  B C E G  B C E H
+
+
+A C A G  A C A H  A C F H  A C F G
+B D F H  B D F G  B D A G  B D A H
+
+A D A G  A D A H  A D F H  A D F G
+B C F H  B C F G  B C A G  B C A H
+
+
+
+E E  E H  F H  F E
+F H  F E  E E  E H
+
+Arrangement of 4 numbers with no repetition = 10*9*8*7 = 5040
+Can we simply divide it by 4! to get the arrangement of 2d2 with no internal
+symmetry?
+
+Can we do this for d2?
+Arrangement of 2 numbers with no repetition = 10*9 = 90
+90 / 2! = 45 which is correct
+
+Then 10*9*8*7 / 4! = 210
+
+Permutations of E F G H
+
+E F G H
+F E G H
+G F E H
+F G E H
+G E F H
+E G F H
+H G F E
+G H F E
+G F H E
+H F G E
+F H G E
+F G H E
+H E F G
+E H F G
+E F H G
+H F E G
+F H E G
+F E H G
+H E G F
+E H G F
+E G H F
+H G E F
+G H E F
+G E H F
+
+2d2 of E F G H
+
+E G  E H  E F
+F H  F G  G H
+
+1 3  1 4  1 2
+2 4  2 3  3 4
+
+Then 10*9*8*7 / 4! * 3 = 630
+
+
+Class 2.
+
+Since there are 1540 2d2 in total, this would suggest there are
+1540 - 630 = 910 2d2 with internal symmetry.
+
+Arrangement of 4 numbers with only 1 repetition = 10*9*8 = 720
+
+E G  E E  E F
+E F  F G  G E
+
+1 3  1 1  1 2
+1 2  2 3  1 3
+
+--------------------------------------------------------------------------------
+
+
+
+
+Glossary:
+Incomplete - A dice set with space left.
+Invalid - A dice set with which not all square numbers can be constructed.
+
+
+
+
+
+
+As usual we can exclude the 2-5 edge from analysis and consider dice sets with
+two d5 instead.
+
+Firstly, we note that if we have a valid dice set containing 9's (hereby a
+9-dice set), we can replace all the 9's with 6's and the resulting dice set
+would be a valid 6-dice set.
+
+Is the converse true? Namely, are all 9-dice sets generated by extending some
+6-dice set?
+
+What does extending mean here?
+Either:
+1. Add a 9 to an incomplete 6-dice set.
+2. Change some of the 6's to 9's.
+
+Suppose there exist a 9-dice set but is not generated by extending a 6-dice set?
+What would such dice set look like?
+
+Clearly, every dice set has a 6 in it to satisfy the 3 - 6 edge. Additionally,
+all dice set containing 9's must be generated by flipping some 6's in some dice
+set containing 6's.
+
+
+
+we can replace all 9's with 6's in the edge set of Reduced
+Graph.
+
+0 - 1
+0 - 4
+0 - 9
+1 - 6
+3 - 6
+4 - 9
+6 - 4
+8 - 1
+
+--------------------------------------------------------------------------------
+
+Fuck this shit.
+How about brute force?
+
+
+Is this problem brute forceable?
+
+10 bins corresponding to 0 to 9.
+6 choices.
+9 separators corresponding to 10 bins, 6 choices
+16!/(6!*9!) = 16C9 = 11 440
+11 440^2 = 130 873 600
+which is not unreasonable to brute force.
+
+How can we enumerate the stars and bars effectively?
+
+
+0 1 2 3  4  5   6   7    8    9     10
+1 3 9 27 81 243 729 2187 6561 19683 59049
+
+2220000000 = 26
+
+2211000000 = 44
+2121000000 = 50
+1221000000 = 52
+
+1212000000 = 70
+1122000000 = 76
+0222000000 = 78
+
+0210100000 = 96 NG
+2210100000 = 98
+2210100000 = 98
+2120100000
+1220100000
+1210200000
+
+This problem is very brute-forcable.
+
+The problem has the following constraints.
+1. (cubeA, cubeB) == (cubeB, cubeA)
+2. No repetition of digits are allowed on the cubes.
+3. 6 == 9 for the purpose of constructing square numbers, but is considered
+   different for constructing cubes. E.g. {1, 2, 3, 4, 8, 9} is equivalent to
+   {1, 2, 3, 4, 6, 8} for the purpose of constructing square numbers, but
+   {1, 2, 3, 4, 8, 9} and {1, 2, 3, 4, 6, 8} are considered as different cubes.
+
+
+
+
+
+

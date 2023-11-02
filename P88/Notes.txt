@@ -1,0 +1,410 @@
+(f n) returns the minimal product-sum number of length n.
+
+f 2  = 4    2*2 == 2+2
+f 3  = 6    1*2*3 == 1+2+3
+f 4  = 8    1*1*2*4 == 1+1+2+4
+f 5  = 8    1*1*2*2*2 == 1+1+2+2+2
+f 6  = 12   1*1*1*1*2*6 == 1+1+1+1+2+6
+f 7  = 12   1*1*1*1*1*3*4 == 1+1+1+1+1+3+4
+f 8  = 12   1*1*1*1*1*2*2*3 == 1+1+1+1+1+2+2+3
+f 9  = 15   1*1*1*1*1*1*1*3*5 == 1+1+1+1+1+1+1+3+5
+f 10 = 16   1*1*1*1*1*1*1*1*4*4 == 1+1+1+1+1+1+1+1+4+4
+f 11 = 16   1*1*1*1*1*1*1*1*2*2*4 == 1+1+1+1+1+1+1+1+2+2+4
+f 12 = 16   1*1*1*1*1*1*1*1*2*2*2*2 == 1+1+1+1+1+1+1+1+2+2+2+2
+f 13 = 18   1*1*1*1*1*1*1*1*1*1*2*3*3 == 1+1+1+1+1+1+1+1+1+1+2+3+3
+f 14 = 20   1*1*1*1*1*1*1*1*1*1*1*2*2*5 == 1+1+1+1+1+1+1+1+1+1+1+2+2+5
+f 15 = 24   1*1+1*1*1*1*1*1*1*1*1*1*1*3*8 == 1+1+1+1+1+1+1+1+1+1+1+1+1+3+8
+f 16 = 24   1*1*1*1*1*1*1*1*1*1*1*1*1*1*4*6 == 1+1+1+1+1+1+1+1+1+1+1+1+1+1+4+6
+f 17 = 24   1*1*1*1*1*1*1*1*1*1*1*1*1*1*2*2*6 == 1+1+1+1+1+1+1+1+1+1+1+1+1+1+2+2+6
+f 18 = 24   1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*2*3*4 == 1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+2+3+4
+f 19 = 24   1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*2*2*2*3 == 1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+2+3+4
+f 20 = 28#  1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*2*2*7 == 1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+2+2+7
+f 21 = 27   1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*3*3*3 == 1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+3+3+3
+f 22 = 32#  1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*4*8 == 1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+4+8
+f 23 = 30   1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*2*3*5 == 1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+2+3+5
+f 24 = 48?! 1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*2*24 == 1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+2+24
+f 25 = 32   1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*2*4*4 == 1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+2+4+4
+f 26 = 32   1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*2*2*2*4 == 1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+2+2+2+4
+f 27 = 32   1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*2*2*2*2*2 == 1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+2+2+2+2+2
+
+A list of natural numbers [a1, a2,.., as] is called an *expression* of a
+if a == sum [a1, a2,.., as] == product [a1, a2,.., as].
+
+Conversely, the *valuation* of an expression [a1, a2,.., as]
+is a = sum [a1, a2,.., as] = product [a1, a2,.., as].
+The valuation of an arbitrary list of natural numbers exists
+if and only if the list is a valid expression.
+
+We note that every number is a trivial product-sum number.
+sum [a] = product [a]
+Note that P88 considers only non-trivial product-sum numbers as product-sum numbers.
+
+1. f n can't be prime. A prime p has only 1 and p as its factors.
+   The only expression of p is [p].
+2. A trivial lower bound for f k is k. sum (replicate k 1) == k
+3. Conjecture: f is monotonic. False, f 20 = 28, f 21 = 27.
+4. Conjecture: f n ~ O(n).
+5. Conjecture: f n is always even. False, f 9 = 15.
+6. Conjecture: f n ~ 3n/2. Numerical evidence supports f n ~ n
+
+Proof of Conjecture 4: f n ~ O(n)
+Can we prove f n <= 2n?
+Sum : (n-2) + 2 + n
+Product : 1^(n-2) * 2 * n
+Therefore, 2n is a product-sum number.
+f n is bounded below by n and above by 2n. Hence, f n ~ O(n).
+
+
+If 4 is in the expansion of (f n), then (f (n+1) = f n)
+4 -> 2*2 = 2+2. Length of expression +1, sum of expression +0.
+
+If 6 is in the expansion of (f n), then (f n == f (n+2)).
+6 -> 1+2+3 = 1*2*3
+
+If (f n) has 2 and 6 in the expression, then (f n == f (n+1)).
+2,6 -> 1+1+1+1+1+3+4 = 1*1*1*1*1*3*4
+If (f n) is divisible by (f k), then (f n) has at least as many expressions as (f k)
+
+If (f n) is divisible by (f k1), (f k2),..., (f kn), and pairwise none of the (f kj)
+is a multiple of (f kl), then (f n) has
+sum [ex (f k1), ex (f k2),...,ex (f kn)] + 1 expressions.
+However, not all of the expressions are necessarily minimal for its length.
+
+--------------------------------------------------------------------------------
+
+The deficiency of n is the number of 1's in the longest expression of n.
+
+--------------------------------------------------------------------------------
+
+The longest expression of a number consists of its prime factors and enough 1's
+to pad it out. We will denote the longest expression of n as <n>.
+The longest expression <n> of n is unique as prime factorisation is unique.
+
+A *contraction* of an expression [a1..as] is the expression [b1..bt].
+[b1..bt] is obtained by replacing some of the ai by their products
+and removing a suitable amount of 1's to compensate.
+E.g.
+[1,1,1,1,1,1,1,1,2,2,4] is a contraction of [1,1,1,1,1,1,1,1,2,2,2,2].
+Both have a value of 16.
+
+A contraction preserves valuation.
+
+
+Suppose we contract <x> by choosing some factors of x and
+repalcing them with their product.
+Let the product of the chosen factors be y.
+The length of the new expression is (length <x> - length <y> + 1).
+
+Suppose we contract an expression of x.
+Is it true that the length of the new expression is (length [x] - length <y> +1),
+where [x] is an expression of x and y is the product of chosen factors.
+Seems true.
+
+
+A number y is strong if (length <y> > length <x>) for any x < y.
+In other words, the expressions of every number smaller than y are shorter than <y>.
+
+If y is strong, then it is a minimal product-sum number.
+
+Proof:
+Let length <y> = t. The claim is equivalent to f t = y.
+
+f t <= y.
+length <y> = t.
+f t is the minimal product-sum number with an expression of length t.
+Hence f t <= y.
+
+f t >= y.
+By definition of strong, y is the least number with an expression of length t.
+
+
+If f t = y and length <y> == t, then y is strong.
+
+Proof:
+f t is the smallest number with an expression of length t.
+Any number smaller than y does not have an expression of length t.
+Let [x] be *any* expression of x.
+f t = y -> length <y> > length [x] for any x < y
+Hence, f t = y -> length <y> > length <x> for any x < y,
+which is the definition of strong applied to y.
+
+--------------------------------------------------------------------------------
+
+How do we find (f n)?
+
+If there exists a strong number s of length n, then f n = s.
+
+Failing that, consider all the numbers z with an expression of length n.
+This set is non-empty as 2n has an expression of length n.
+So indeed it has a least element.
+Can we prove that if a contraction of <s> has length n,
+then f n = s?
+
+
+Let x be a strong number and y be the smallest strong number greater than x.
+Let s = length <x> and t = length <y>.
+If there exists a contraction of <y> such that the contraction has length u,
+and s < u < t, then f u = y.
+
+Proof:
+
+f u <= y.
+<y> has a contraction of length u.
+Therefore, f u <= y.
+
+f u >= y.
+First, we prove f u > x.
+(f u) cannot be smaller than x, as that would imply the length of <x> is not
+the longest among all the expressions of [1 .. x - 1], thus x is not strong.
+(f u) cannot be equal to x, the longest expression of x is has length s, and
+s < u.
+So (f u) must be greater than x.
+
+Since the smallest strong number greater than x is y,
+there cannot be any strong numbers between x and y,
+and no numbers between x and y has an expression of length greater than s.
+So (f u) must be equal or greater than y as desired.
+
+Combining the two inequalities we have f u == y.
+
+
+
+
+--------------------------------------------------------------------------------
+
+Can we say anything about the largest prime factor of a minimal product-sum number?
+
+Suppose we wish to find f k, the minimal product-sum number of length k.
+
+If f k has s prime factors,
+then the largest prime factor cannot be larger than k `quot` 2^(s-2).
+
+Proof:
+f k <= 2k.
+Let the largest prime factor of f k be p.
+Consider the list of numbers consisting of (k-s) 1's, (s-1) 2's, and the prime p.
+This is the list of numbers with the smallest product while still being a possible
+expression for f k.
+
+f k <= 2k
+2^(s-1) * p <= 2k
+2^(s-2) * p <= k
+p <= k `quot` (2^(s-2))
+
+
+--------------------------------------------------------------------------------
+
+Can we say anything about the expressions of x and the expressions of y, where x | y?
+
+Is it true that every expression of y can be truncated to yield an expression of x?
+
+
+f 6  = 12   1*1*1*1*2*6 == 1+1+1+1+2+6
+f 7  = 12   1*1*1*1*1*3*4 == 1+1+1+1+1+3+4
+f 8  = 12   1*1*1*1*1*2*2*3 == 1+1+1+1+1+2+2+3
+
+f 15 = 24   1*1+1*1*1*1*1*1*1*1*1*1*1*3*8 == 1+1+1+1+1+1+1+1+1+1+1+1+1+3+8
+f 16 = 24   1*1*1*1*1*1*1*1*1*1*1*1*1*1*4*6 == 1+1+1+1+1+1+1+1+1+1+1+1+1+1+4+6
+f 17 = 24   1*1*1*1*1*1*1*1*1*1*1*1*1*1*2*2*6 == 1+1+1+1+1+1+1+1+1+1+1+1+1+1+2+2+6
+f 18 = 24   1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*2*3*4 == 1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+2+3+4
+f 19 = 24   1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*2*2*2*3 == 1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+2+3+4
+
+f 6 in f 17
+f 7 in f 18
+f 8 in f 19
+
+
+There is an injection obviously. We can partition the contractions into two sets.
+First set is where the contractions do not involve factors that are not factors of x.
+Second set is where the contractions involve some factors of y that are not factors of x.
+
+IMPORTANT:
+We can do this more cunningly.
+Suppose we seek all contractions of <y>.
+Let x be the largest proper divisor of y.
+y/x is necessarily prime. [0]
+We calculate all contractions of <x>,
+then combine that with the only expression of y/x.
+There is only one expression of y/x as y/x is prime.
+
+[0]:
+If y/x is not a prime then let y = pq where p, q /= 1.
+px > x but y/(px) = q, contradicting x largest divisor of y.
+
+
+32:
+[ (1,32,OccList [(32,1)]),
+  (16,32,OccList [(2,1),(16,1)]),
+  (22,32,OccList [(4,1),(8,1)]),
+  (23,32,OccList [(2,2),(8,1)]),
+  (25,32,OccList [(2,1),(4,2)]),
+  (26,32,OccList [(2,3),(4,1)]),
+  (27,32,OccList [(2,5)])
+]
+
+16:
+[ (1,16,OccList [(16,1)]),
+  (8,16,OccList [(2,1),(8,1)]),
+  (10,16,OccList [(4,2)]),
+  (11,16,OccList [(2,2),(4,1)]),
+  (12,16,OccList [(2,4)])
+]
+
+1  in 16
+8  in 23
+10 in 25
+11 in 26
+12 in 27
+
+combine (1,16,OccList [(16,1)]) (1,2,OccList [(2,1)]) =
+    [ (1,32,OccList [(32,1)]),
+      (16,32,OccList [(2,1),(16,1)]),
+    ]
+
+
+48:
+[ (1,48,OccList [(48,1)]),
+  (24,48,OccList [(2,1),(24,1)]),
+  (31,48,OccList [(3,1),(16,1)]),
+  (34,48,OccList [(4,1),(12,1)]),
+  (35,48,OccList [(2,2),(12,1)]),
+  (36,48,OccList [(6,1),(8,1)]),
+  (38,48,OccList [(2,1),(3,1),(8,1)]),
+  (39,48,OccList [(2,1),(4,1),(6,1)]),
+  (40,48,OccList [(2,3),(6,1)]),
+  (40,48,OccList [(3,1),(4,2)]),
+  (41,48,OccList [(2,2),(3,1),(4,1)]),
+  (42,48,OccList [(2,4),(3,1)])
+]
+
+
+24:
+[ (1,24,OccList [(24,1)]),
+  (12,24,OccList [(2,1),(12,1)]),
+  (15,24,OccList [(3,1),(8,1)]),
+  (16,24,OccList [(4,1),(6,1)]),
+  (17,24,OccList [(2,2),(6,1)]),
+  (18,24,OccList [(2,1),(3,1),(4,1)]),
+  (19,24,OccList [(2,3),(3,1)])
+]
+
+1  in 24
+12 in 35 = 12+24-1
+15 in 38 = 15+24-1
+16 in 39 = 16+24-1
+17 in 40
+18 in 41
+19 in 42
+
+new length = l + (y - x)  + 1 - (y/x)
+= original length + difference between y and its largest divisor - valuation of expression of 2 (=2)
+
+[ (1,48,OccList [(48,1)]),
+  (31,48,OccList [(3,1),(16,1)]),
+  (34,48,OccList [(4,1),(12,1)]),
+  (36,48,OccList [(6,1),(8,1)]),
+  (40,48,OccList [(3,1),(4,2)]),
+]
+
+[(1,48,OccList [(48,1)])]
+= combine (1,24,OccList [(24,1)]) (1,2,OccList [(2,1)])
+
+[(31,48,OccList [(3,1),(16,1)])]
+= combine (15,24,OccList [(3,1),(8,1)]) (1,2,OccList [(2,1)])
+
+[(34,48,OccList [(4,1),(12,1)])]
+= combine (16,24,OccList [(4,1),(6,1)]) (1,2,OccList [(2,1)])
+= combine (12,24,OccList [(2,1),(12,1)]) (1,2,OccList [(2,1)])
+(12, 24) spurious?
+
+[(36,48,OccList [(6,1),(8,1)])]
+= combine (15,24,OccList [(3,1),(8,1)]) (1,2,OccList [(2,1)])
+= combine (16,24,OccList [(4,1),(6,1)]) (1,2,OccList [(2,1)])
+
+[(40,48,OccList [(3,1),(4,2)])]
+= combine (18,24,OccList [(2,1),(3,1),(4,1)]) (1,2,OccList [(2,1)])
+
+
+12:
+[ (1,12,OccList [(12,1)]),
+  (6,12,OccList [(2,1),(6,1)]),
+  (7,12,OccList [(3,1),(4,1)]),
+  (8,12,OccList [(2,2),(3,1)]) ]
+
+6:
+[ (1,6,OccList [(6,1)]),
+  (3,6,OccList [(2,1),(3,1)]) ]
+
+1 in 6
+3 in 8
+
+
+
+27:
+[ (1,27,OccList [(27,1)]),
+  (17,27,OccList [(3,1),(9,1)]),
+  (21,27,OccList [(3,3)]) ]
+
+9:
+[ (1,9,OccList [(9,1)]),
+  (5,9,OccList [(3,2)]) ]
+
+1 in 17
+5 in 21
+
+l + (y-x) - 2
+
+
+--------------------------------------------------------------------------------
+
+96:
+[ (1,96,OccList [(96,1)]),
+  (48,96,OccList [(2,1),(48,1)]),
+  (63,96,OccList [(3,1),(32,1)]),
+  (70,96,OccList [(4,1),(24,1)]),
+  (71,96,OccList [(2,2),(24,1)]),
+  (76,96,OccList [(6,1),(16,1)]),
+  (78,96,OccList [(2,1),(3,1),(16,1)]),
+  (78,96,OccList [(8,1),(12,1)]),
+  (81,96,OccList [(2,1),(4,1),(12,1)]),
+  (82,96,OccList [(2,3),(12,1)]),
+  (83,96,OccList [(2,1),(6,1),(8,1)]),
+  (84,96,OccList [(3,1),(4,1),(8,1)]),
+  (85,96,OccList [(2,2),(3,1),(8,1)]),
+  (85,96,OccList [(4,2),(6,1)]),
+  (86,96,OccList [(2,2),(4,1),(6,1)]),
+  (87,96,OccList [(2,1),(3,1),(4,2)]),
+  (87,96,OccList [(2,4),(6,1)]),
+  (88,96,OccList [(2,3),(3,1),(4,1)]),
+  (89,96,OccList [(2,5),(3,1)])
+]
+
+
+24:
+[ (1,24,OccList [(24,1)]),
+  (12,24,OccList [(2,1),(12,1)]),
+  (15,24,OccList [(3,1),(8,1)]),
+  (16,24,OccList [(4,1),(6,1)]),
+  (17,24,OccList [(2,2),(6,1)]),
+  (18,24,OccList [(2,1),(3,1),(4,1)]),
+  (19,24,OccList [(2,3),(3,1)])
+]
+
+1 in 71
+12 in 82
+15 in 85
+16 in 86
+17 in 87
+18 in 88
+19 in 89
+
+--------------------------------------------------------------------------------
+
+THE NUMBER OF CONTRACTIONS OF <n> IS IN BIJECTION WITH DIVISORS OF n?????
+Not necessarily. Not all expressions are generated in a single contraction.
+
+e.g. An expression of 24 with length 16.
+f 16 = 24   1*1*1*1*1*1*1*1*1*1*1*1*1*1*4*6 == 1+1+1+1+1+1+1+1+1+1+1+1+1+1+4+6
+f 19 = 24   1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*2*2*2*3 == 1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+2+3+4
+
+

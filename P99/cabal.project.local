@@ -1,0 +1,5 @@
+packages: .
+          "../libraries/*/*.cabal"
+ignore-project: False
+profiling: True
+optimization: 2

@@ -1,0 +1,131 @@
+What are the symmetries of a magic 3-gon? How is it applicable to magic 5-gon?
+
+There is the obvious threefold rotational symmetry.
+
+Consider the magic 3-gon {4,2,3; 5,3,1; 6,1,2}
+There is a not-so-obvious sum-preserving symmetry.
+
+Swap the two number in the middle cycle and moving things around.
+{4,3,2; 6,2,1; 5,1,3}
+
+{a,b,c; d,c,e; f,e,b} -> {a,c,b; f,b,e; d,e,c}
+
+Consider a magic 4-gon.
+Can we use the solution of a magic 3-gon to construct a magic 4-gon?
+
+{1,5,8; 2,8,4; 7,4,3; 6,3,5} is one magic 4-gon.
+{1,8,5; 6,5,3; 7,3,4; 2,4,8} is its complement.
+
+{a,b,c; d,c,e; f,e,g; h,g,b} -> {a,c,b; h,b,g; f,g,e; d,e,c}
+
+The question seeks the largest *16-digit* string for a "magic" 5-gon string.
+Therefore, 10 must be on the outside ring.
+
+The constraints have opposing effect on the string.
+The larger the sum, the larger the number in the inner ring.
+Hence, the smaller the number on the outside ring and the smaller the string.
+However, the larger the number in the inner ring, the larger the string.
+
+Ignoring the sum constraint,
+there are 10! ways to arrange numbers on a magic 5-gon,
+5 rotational symmetry, 2 complement symmetry,
+9! = 362 880 ways arrangements modulo symmetry.
+
+--------------------------------------------------------------------------------
+
+How to brute-force search?
+
+Data structure:
+Keep track of number used in a set (?)
+Mutable vector to store the crap
+
+
+Depth-first or breath-first?
+Depth-first. No need to allocate and deallocate vectors.
+Just make a copy when the thing is filled and backtrack.
+Also can modify the termination condition on the fly
+
+Algorithm:
+Start with 10 on the outer edge.
+Choose a sum between 13 < s < 27, starting from the smaller sum
+(13 = 10+1+2, 27 = 10+8+9)
+
+Loop until filled:
+Choose 1 unused number.
+As the sum and 2 numbers are chosen, check if the last number is used.
+Choose if unused, revert if used.
+
+When filled:
+Freeze that vector and output to list?
+
+--------------------------------------------------------------------------------
+
+{a,b,c; d,c,e; f,e,b}
+
+abcdcefeb
+
+1. Start of every triplet is new
+2. Middle of every triplet is the end of last triplet
+
+
+{0,1,2; 3,2,4; 5,4,6; 7,6,8; 9,8,1}
+
+Store the elements in a flat vector
+[0,1,2,3,4,5,6,7,8,9]
+
+the sum is easily accessed in a cache-friendly way
+
+first triple 0,1,2
+second triple 3,2,4 = 2,3,4
+third triple = 5,4,6 = 4,5,6
+fourth triple = 7,6,8 = 6,7,8
+fifth triple is the only problem
+
+
+Choose [0,1,2]
+Choose [3]
+Check 4
+Choose 5
+Check 6
+Choose 7
+Check 8
+Check 9
+
+
+Check 4 -> Sum 2 3 4
+Check 6 -> Sum 4 5 6
+Check 8 -> Sum 6 7 8
+Check 9 -> Sum 8 9 1
+
+
+
+
+1. search
+2. on fail try next
+3. combine the errors together using monoid instance
+
+
+Except for the first 3 elements when we choose the outer elements the inner
+elements are automatically fixed.
+
+
+
+[0,1,2,3,4,5,6,7,8,9]
+[9,8,1,0,2,3,4,5,6,7]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,168 @@
+Can we bound d in terms of a?
+
+[a, b, c, d] must from 1
+
+If a == 1, then ((d / c) / b) - 1 is the smallest number
+that can be formed that could possibly be 1.
+((d / c) / b) - 1 == 1
+((d / c) / b) == 2
+d == 2bc
+
+
+If a /= 1, then ((d / c) / b) / a is the smallest number
+that can be formed that could possibly be 1.
+((d / c) / b) / a == 1
+d == abc
+
+These bounds are virtually useless as d is required to be a single digit.
+
+--------------------------------------------------------------------------------
+
+Can we count how many combinations there are using reverse Polish notation?
+
+4 numbers each used exactly once: a b c d
+4 operators choose 3: + * - /
+
+Before the first operand there must be at least two numbers.
+Last symbol must be an operator.
++ * commutative.
+
+Consider the following problem for commutativity.
+2 numbers: a b
+4 operands: + * - /
+a + b == b + a
+a * b == b * a
+a - b
+a / b
+b - a
+b / a
+6 combinations
+2 * (2 + 2 / 2)
+2 numbers * (2 non-commutative operands + 2 commutative operands contributing half each)
+
+In RPN:
+a b + == b a +
+a b * == b a *
+a b -
+a b /
+b a -
+b a /
+
+Is it true that in general 2 commutative operands is equal to 1 non-commutative operands?
+3 numbers: a b c
+4 operands: + * - /
+Prediction if hypothesis true: (3 * 2) * 3 * (2 * 3) = 108
+
+Assuming none of the operators are commutative,
+(3 * 2) * 4 * (2! * 4) = 192
+
+Assuming all of the operators are commutative,
+(3 * 2) * 4 * (2! * 4) / 2^2 = 48
+
+Split the calculation into three sets:
+Set A: None of the operators are commutative
+Set B: One of the oeprators is commutative
+Set C: Both of the operators are commutative
+
+Set A:
+(3 * 2) * 2 * (2! * 2) = 48
+first two numbers * last operator * permutation of middle group * middle operator
+
+Set B:
+(3 * 2) * (2 / 2) * (2! * 2) + (3 * 2) * 2 * (2! * 2 / 2) = 48
+last operator commutative + middle operator commutative
+
+Set C:
+(3 * 2) * 2 * 2! + 2 = 26
+different commutative operators + same commutative operators
+If the two commutative operators are the same, then there is only 1 result.
+E.g. a*b*c == a*c*b == c*a*b etc...
+
+Sum = 122
+
+Alternatively, (3 * 2) * (2 + 2/2) * (2! * 4) = 144
+Two of the operators are commutative and each contributes 1/2.
+Finally, we overcounted cases where both operators are commutative
+e.g. a*b*c == a*c*b etc...
+There are 3! * 2 = 12 cases like this.
+144 - 12 = 122
+
+4N3O
+
+Seems to indicate there are (4 * 3) * (2 + 2 / 2) * k * l * 4! different combinations,
+where k is the number of length 4 strings formed by 2 operands and 2 numbers,
+and l is the number of four element sets such that 0 <= a < b < c < d < 10.
+
+
+
+What is k?
+2 numbers : x y
+4 operands: + - * /
+
+4! = 24 is an upper bound for k
+
+To construct a lower bound for k, pretend the operands are all commutative.
+4! / 2^3 = 3
+
+Upper bound is 864l.
+Does not seem like a useful bound.
+
+What is l?
+
+Consider the simplest 2-element case:
+Choose n for the first number
+n-1 choice for the second number
+8 + 7 + 6 + 5 + 4 + 3 + 2 + 1
+sum_1^8 n = 36
+
+Let f n be the number of possible choices if n is the largest element in the
+2-element set.
+f n = n - 1
+sum_1^9 (n-1) = 36
+sum_2^n (f k) = (n*n-1)/2
+
+Now the 3 element case:
+Let m be the greatest element in a 3 element set.
+If m is the greatest element, then the remaining 2-element set can have
+a greatest element from 2 to m-1.
+A 2-element set with greatest element of m-1 has m-2 choices.
+g m = sum_2^(m-1) f n
+g m = ((m-1)*(m-2))/2
+sum_3^9 (g m) = 84
+
+4 element case:
+Let m be the greatest element in a 4 element set.
+If m is the greatest element, then the remaining 3-element set can have
+a greatest element from 3 to m-1.
+sum_4^9 sum_3^k (g m) = 126
+
+209*864*4! = 4 333 824
+Brute-force-able?
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------
+
+Can we order the strings to reduce the amount of brute-forcing required?
+
+We can turn a RPN instruction string into an n-ary function.
+E.g. "a b c d + * - /" -> f a b c d = result of "a b c d + * - /"
+Can we (partially) order the induced functions directly such that
+we can stop the search when the induced function turns negative?
+
+a b c d * * * * is clearly maximal.
+a b c d / / / / is clearly minimal but definitely not integral.
+
+
+
+
+

@@ -1,0 +1,8 @@
+cradle:
+  cabal:
+    - path: "./app/Main.hs"
+      component: "exe:P75"
+    - path: "./app/Main.hs"
+      component: "exe:P75-profiling"
+    - path: "./app/online.hs"
+      component: "exe:online-profiling"

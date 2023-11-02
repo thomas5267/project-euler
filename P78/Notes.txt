@@ -1,0 +1,278 @@
+p(1) = 1
+
+
+p(2)
+
+o o
+
+o | o
+
+p 2 = 2
+q 2 2 = 1
+q 2 1 = 1 = q 1 1
+
+
+p(3)
+
+o o o
+
+o o | o
+
+o | o | o
+
+p 3 = 3
+q 3 3 = 1
+q 3 2 = 1 = q 1 1
+q 3 1 = 1 = q 2 1
+
+p(4)
+
+o o o o
+
+o o o | o
+
+o o | o o
+o o | o | o
+
+o | o | o | o
+
+p 4 = 5
+q 4 4 = 1
+q 4 3 = 1 = q (4-3) (4-3)
+q 4 2 = 2 = p 2 = q 2 2 + q 2 1
+q 4 1 = 1
+
+
+p(5)
+
+o o o o o
+
+o o o o | o
+
+o o o | o o
+o o o | o | o
+
+o o | o o | o
+o o | o | o | o
+
+o | o | o | o | o
+
+p(5) = 7
+q 5 5 = 1
+q 5 4 = 1 = q 1 1
+q 5 3 = 2 = q 2 1 + q 2 2
+q 5 2 = 2 = q 3 2 + q 3 1
+q 5 1 = 1
+
+
+p(6)
+
+o o o o o o
+
+o o o o o | o
+
+o o o o | o o
+o o o o | o | o
+
+o o o | o o o
+o o o | o o | o
+o o o | o | o | o
+
+o o | o o | o o
+o o | o o | o | o
+o o | o | o | o | o
+
+o | o | o | o | o | o
+
+p(6) = 11
+q 6 6 = 1 = p 0
+q 6 5 = 1 = p 1
+q 6 4 = 2 = q 2 2 + q 2 1 = p 2
+q 6 3 = 3 = q 3 3 + q 3 2 + q 3 1 = p 3
+q 6 2 = 3 = q 4 2 + q 4 1
+q 6 1 = 1
+
+
+p(7)
+
+o o o o o o o
+
+o o o o o o | o
+
+o o o o o | o o
+o o o o o | o | o
+
+o o o o | o o o
+o o o o | o o | o
+o o o o | o | o | o
+
+o o o | o o o | o
+o o o | o o | o o
+o o o | o o | o | o
+o o o | o | o | o | o
+
+o o | o o | o o | o
+o o | o o | o | o | o
+o o | o | o | o | o | o
+
+o | o | o | o | o | o | o
+
+p(7) = 15
+q 7 7 = 1 = p 0
+q 7 6 = 1 = p 1
+q 7 5 = 2 = q 2 2 + q 2 1 = p 2
+q 7 4 = 3 = q 3 3 + q 3 2 + q 3 1 = p 3
+q 7 3 = 4 = q 4 3 + q 4 2 + q 4 1
+q 7 2 = 3 = q 5 2 + q 5 1
+q 7 1 = 1
+
+
+p(8)
+
+o o o o o o o o
+
+o o o o o o o | o
+o o o o o o | o o
+o o o o o | o o o
+o o o o | o o o o
+
+o o o o o o | o | o    6 + 1 + 1
+o o o o o | o o | o    5 + 2 + 1
+o o o o | o o o | o    4 + 3 + 1
+o o o o | o o | o o    4 + 2 + 2
+o o o | o o o | o o    3 + 3 + 2
+
+o o o o o | o | o | o    5 + 1 + 1 + 1
+o o o o | o o | o | o    4 + 2 + 1 + 1
+o o o | o o o | o | o    3 + 3 + 1 + 1
+o o o | o o | o o | o    3 + 2 + 2 + 1
+o o | o o | o o | o o    2 + 2 + 2 + 2
+
+o o o o | o | o | o | o
+o o o | o o | o | o | o
+o o | o o | o o | o | o
+
+o o o | o | o | o | o | o
+o o | o o | o | o | o | o
+
+o o | o | o | o | o | o | o
+
+o | o | o | o | o | o | o | o
+
+p(8) = 22
+p 8 0 = 1
+p 8 1 = 4
+p 8 2 = 5 = p 7 1 + p 6 1 - p 5 0
+p 8 3 = 5
+p 8 4 = 3
+p 8 5 = 2
+p 8 6 = 1
+p 8 7 = 1
+
+
+p(9)
+
+o o o o o o o o o
+
+o o o o o o o o | o
+o o o o o o o | o o
+o o o o o o | o o o
+o o o o o | o o o o
+
+o o o o o o o | o | o
+o o o o o o | o o | o
+o o o o o | o o o | o
+o o o o | o o o o | o
+o o o o | o o o | o o
+o o o | o o o | o o o
+
+o o o o o o | o | o | o
+o o o o o | o o | o | o
+o o o o | o o o | o | o
+o o o o | o o | o o | o
+o o o | o o o | o o | o
+o o o | o o | o o | o o
+
+o o o o o | o | o | o | o
+o o o o | o o | o | o | o
+o o o | o o o | o | o | o
+o o o | o o | o o | o | o
+o o | o o | o o | o o | o
+
+o o o o | o | o | o | o | o
+o o o | o o | o | o | o | o
+o o | o o | o o | o | o | o
+
+o o o | o | o | o | o | o | o
+o o | o o | o | o | o | o | o
+
+o o | o | o | o | o | o | o | o
+
+o | o | o | o | o | o | o | o | o
+
+p(9) = 29
+p 9 0 = 1
+p 9 1 = 4
+p 9 2 = 6
+p 9 3 = 6
+p 9 4 = 5
+p 9 5 = 3
+p 9 6 = 2
+p 9 7 = 1
+p 9 8 = 1
+
+
+o o o o o o o o o
+
+o o o o o o o o | o
+
+o o o o o o o | o o
+o o o o o o o | o | o
+
+o o o o o o | o o o
+o o o o o o | o o | o
+o o o o o o | o | o | o
+
+o o o o o | o o o o
+o o o o o | o o o | o
+o o o o o | o o | o o
+o o o o o | o o | o | o
+o o o o o | o | o | o | o
+
+o o o o | o o o o | o
+o o o o | o o o | o o
+o o o o | o o o | o | o
+o o o o | o o | o o | o
+o o o o | o o | o | o | o
+o o o o | o | o | o | o | o
+
+o o o | o o o | o o o
+o o o | o o o | o o | o
+o o o | o o o | o | o | o
+o o o | o o | o o | o o
+o o o | o o | o o | o | o
+o o o | o o | o | o | o | o
+o o o | o | o | o | o | o | o
+
+o o | o o | o o | o o | o
+o o | o o | o o | o | o | o
+o o | o o | o | o | o | o | o
+o o | o | o | o | o | o | o | o
+
+o | o | o | o | o | o | o | o | o
+
+p(9) = 30
+q 9 9 = 1
+q 9 8 = 1
+q 9 7 = 2 = p 2
+q 9 6 = 3 = p 3
+q 9 5 = 5 = p 4
+q 9 4 = 6 = q 5 4 + q 5 3 + q 5 2 + q 5 1
+q 9 3 = 7 = q 6 3 + q 6 2 + q 6 1
+q 9 2 = 4 = q 7 2 + q 7 1
+q 9 1 = 1
+
+
+
+p n = sum (map (q n) [1..n])
+q n k = sum (map (q (n-k)) [1..(max (n-k) k)])

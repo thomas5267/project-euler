@@ -1,0 +1,43 @@
+0123456789      1
+...       
+0987654321      fac 9 = 362880
+1023456789      fac 9 + 1
+1987654320      2*fac 9
+
+2013456789      2*fac 9 + 1 = 725761, fac 8 = 40320
+2098765431      2*fac 9 + fac 8
+2198765430      2*fac 9 + 2*fac 8
+2398765410      2*fac 9 + 3*fac 8
+2498765310      2*fac 9 + 4*fac 8
+2598764310      2*fac 9 + 5*fac 8
+2698754310      2*fac 9 + 6*fac 8
+
+2701345689      2*fac 9 + 6*fac 8 + 1
+2709865431      2*fac 9 + 6*fac 8 + fac 7
+2719865430      2*fac 9 + 6*fac 8 + 2*fac 7
+2739865410      2*fac 9 + 6*fac 8 + 3*fac 7
+2749865430      2*fac 9 + 6*fac 8 + 4*fac 7
+2759864310      2*fac 9 + 6*fac 8 + 5*fac 7
+2769854310      2*fac 9 + 6*fac 8 + 6*fac 7
+
+2780134569      2*fac 9 + 6*fac 8 + 6*fac 7 + 1
+2780965431      2*fac 9 + 6*fac 8 + 6*fac 7 + fac 6
+2781965431      2*fac 9 + 6*fac 8 + 6*fac 7 + 2*fac 6
+
+2783014569      2*fac 9 + 6*fac 8 + 6*fac 7 + 2*fac 6 + 1
+2783096541      2*fac 9 + 6*fac 8 + 6*fac 7 + 2*fac 6 + fac 5
+2783104569      2*fac 9 + 6*fac 8 + 6*fac 7 + 2*fac 6 + 2*fac 5
+2783401569      2*fac 9 + 6*fac 8 + 6*fac 7 + 2*fac 6 + 3*fac 5
+2783501469      2*fac 9 + 6*fac 8 + 6*fac 7 + 2*fac 6 + 4*fac 5
+2783601459      2*fac 9 + 6*fac 8 + 6*fac 7 + 2*fac 6 + 5*fac 5
+
+2783901456      2*fac 9 + 6*fac 8 + 6*fac 7 + 2*fac 6 + 5*fac 5 + 1
+2783906541      2*fac 9 + 6*fac 8 + 6*fac 7 + 2*fac 6 + 5*fac 5 + fac 4
+
+2783910456      2*fac 9 + 6*fac 8 + 6*fac 7 + 2*fac 6 + 5*fac 5 + fac 4 + 1
+2783910654      2*fac 9 + 6*fac 8 + 6*fac 7 + 2*fac 6 + 5*fac 5 + fac 4 + fac 3
+2783914650      2*fac 9 + 6*fac 8 + 6*fac 7 + 2*fac 6 + 5*fac 5 + fac 4 + 2*fac 3
+
+2783915046      2*fac 9 + 6*fac 8 + 6*fac 7 + 2*fac 6 + 5*fac 5 + fac 4 + 2*fac 3 + 1
+2783915064      2*fac 9 + 6*fac 8 + 6*fac 7 + 2*fac 6 + 5*fac 5 + fac 4 + 2*fac 3 + fac 2
+2783915460      2*fac 9 + 6*fac 8 + 6*fac 7 + 2*fac 6 + 5*fac 5 + fac 4 + 2*fac 3 + 2*fac 2 = 1000000

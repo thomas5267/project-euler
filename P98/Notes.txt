@@ -1,0 +1,15 @@
+Constraints:
+1. The two words are anagrams of each other.
+2. There exists a mapping from letters to numbers such that the words are
+   square numbers after passing through the mapping.
+
+853107264
+INTRODUCE
+
+147263805
+REDUCTION
+
+SHEET
+THESE
+
+E < S or E > S

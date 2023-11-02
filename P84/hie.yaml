@@ -1,0 +1,9 @@
+cradle:
+  cabal:
+    components:
+    - path: "./src"
+      component: "lib:Distributions"
+    - path: "./app"
+      component: "exe:P84"
+    - path: "./app"
+      component: "exe:P84-profiling"

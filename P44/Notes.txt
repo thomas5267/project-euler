@@ -1,0 +1,104 @@
+P_{n+k} - P_n = P_k + 3kn
+P_{n+k} + P_n = 2P_n + P_k + 3kn
+P_n = n*(3n-1)/2
+
+By experiment we note that in mod 5
+
+n       P_n
+0       0
+1       1
+2       0
+3       2
+4       2
+
+Suppose k = 0 mod 5, P_k = 0 mod 5
+P_k + 3kn mod 5 = 0 mod 5
+No restriction on n
+
+Suppose k = 1 mod 5, P_k = 1 mod 5
+P_k + 3kn mod 5 = 1 + 3n
+n must be 0, 2, 3 mod 5 lest difference not pentagonal
+
+Suppose k = 2 mod 5, P_k = 0 mod 5
+P_k + 3kn mod 5 = n mod 5
+n must be 0, 1, 2 mod 5
+
+Suppose k = 3 mod 5, P_k = 2 mod 5
+P_k + 3kn mod 5 = 2 + 4n mod 5
+n must be 0, 1, 2 mod 5
+
+Suppose k = 4 mod 5, P_k = 2 mod 5
+P_k + 3kn mod 5 = 2 + 2n mod 5
+n must be 0, 2, 4 mod 5
+
+Suppose k = 0 mod 5, P_k = 0 mod 5
+P_k + 3kn mod 5 = 0 mod 5
+No restriction on n
+Now consider 2P_n + P_k + 3kn mod 5
+= 2P_n mod 5
+P_n must be 0, 1 mod 5 lest sum not pentagonal
+n = 0, 1, 2 mod 5
+
+Suppose k = 1 mod 5, P_k = 1 mod 5
+P_k + 3kn = 1 + 3n mod 5
+n must be 0, 2, 3 mod 5 lest difference not pentagonal
+Now consider 2P_n + P_k + 3kn mod 5
+= 2P_n + 1 + 3n mod 5
+n must be 0, 2 mod 5
+
+Suppose k = 2 mod 5, P_k = 0 mod 5
+P_k + 3kn = n mod 5
+n must be 0, 1, 2 mod 5
+Now consider 2P_n + P_k + 3kn mod 5
+= 2P_n + n mod 5
+n must be 0, 2 mod 5
+
+Suppose k = 3 mod 5, P_k = 2 mod 5
+P_k + 3kn = 2 + 4n mod 5
+n must be 0, 1, 2 mod 5
+Now consider 2P_n + P_k + 3kn mod 5
+= 2P_n + 2 + 4n mod 5
+n must be 0, 2 mod 5
+
+Suppose k = 4 mod 5, P_k = 2 mod 5
+P_k + 3kn = 2 + 2n mod 5
+n must be 0, 2, 4 mod 5
+Now consider 2P_n + P_k + 3kn
+= 2P_n + 2 + 2n mod 5
+n must be 0, 2 mod 5
+
+n must be 0, 1, 2 mod 5
+If n is 1 mod 5 then k = 0 mod 5
+If n is 0, 2 mod 5 then k can be anything
+
+
+P_n = n*(3n-1)/2
+P_{n+k} - P_n = P_k + 3kn
+P_{n+k} + P_n = 2P_n + P_k + 3kn
+
+Suppose we want to search for a positive k such that P_{n+k} - P_n = P_d
+We will search by first fixing n and iterate through k.
+The search can stop at some n because of the following.
+Smallest difference at n is P_{n+1} - P_n = P_1 + 3n = 1 + 3n
+We can stop the search when P_d <= 1 + 3n = smallest possible difference
+
+E.g. we want to search for a pair such that their difference is P_5,
+we can stop at 35 <= 1 + 3n -> n == 34/3 rounded down to 11
+P_{12} - P_{11} = 34
+
+Where do we stop searching for a particular n?
+Suppose we seek to find a P_{n+k} such that P_{n+k} - P_n = P_d
+We stop searching when P_{n+k} - P_n >= P_d
+P_k + 3kn >= P_d
+
+let un = (P_d - 1) `quot` 3
+n <- [1..un], k <- [1..(un + 1 - n)]
+
+How about filping the problem?
+Consider diffPenta m n = pentagonalNumbers m - pentagonalNumbers n
+diffPenta can be considered as an array of two integers.
+We store the values of m n for which diffPenta m n is true in a set.
+memo :: Set (Int, Int)
+
+Suppose we want to search for difference of pentagonal numbers up to P30 = 1335
+We "only" have to search to P_444 as P_445 - P_444 = 1333

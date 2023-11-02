@@ -1,0 +1,181 @@
+module Main (main) where
+
+import qualified Data.IntSet as IS
+import Data.List (maximumBy, scanl')
+import qualified Data.Vector.Unboxed as U
+
+import Euler.Helper (compareLength, whenEQ)
+import Data.Numbers.Primes hiding (isPrime)
+import Data.Ord (comparing)
+
+limit :: Int
+limit = 1000000
+
+primes' :: [Int]
+primes' = takeWhile (<= limit) primes
+
+-- Only correct up to limit
+isPrime :: Int -> Bool
+isPrime = (`IS.member` primesSet')
+  where
+    primesSet' = IS.fromDistinctAscList primes'
+
+-- search :: Int -> [Int]
+-- search n = search' revPyramid [] False
+--   where
+--     revPyramid = reversePyramidGen n primes'
+--
+--     search' :: [[Int]] -> [Int] -> Bool -> [Int]
+--     search' [] best _ = best
+--     search' (x : xs) best b
+--       | b = evenSpecial
+--       | null result = search' xs best (not b)
+--       | otherwise = search' xs result (not b)
+--       where
+--         evenSpecial =
+--           if isPrime (head x)
+--             then search' xs [head x] (not b)
+--             else search' xs best (not b)
+--         result = filter isPrime x
+
+-- reversePyramidGen :: Int -> [Int] -> [[Int]]
+-- -- Generates a reverse pyramid of consecutive sums
+-- -- with base at the head of the list.
+-- -- Only works with sorted lists but the precondition is not checked.
+-- reversePyramidGen n l = nextLevel l l
+--   where
+--     nextLevel :: [Int] -> [Int] -> [[Int]]
+--     nextLevel [] _ = []
+--     nextLevel _ [] = []
+--     nextLevel a (_ : bs) = a : nextLevel acc bs
+--       where
+--         acc = zipWith (:) a bs
+
+pairList :: [(Int, Int)]
+pairList = iterate go (0, 0)
+  where
+    go (a, b) =
+      if a > 0
+        then (a - 1, b + 1)
+        else (b + 1, 0)
+
+primesSumVector :: U.Vector Int
+primesSumVector = U.fromList $ scanr (+) 0 primes'
+
+-- candidates :: [Int]
+-- candidates = foldr go [] pairList
+--   where
+--     len = U.length primesSumVector
+--     go (a, b) acc
+--       | q > a = (primesSumVector U.! q -  primesSumVector U.! a) : acc
+--       | otherwise = []
+--       where q = len - b - 1
+
+candidates :: [([Int], Int)]
+candidates = concat $ genCandidates primes'
+  where
+    genCandidates [] = []
+    genCandidates xl@(_ : xs) = takeWhile ((<= limit) . snd) (allSums xl) : genCandidates xs
+      where
+        allSums :: [Int] -> [([Int], Int)]
+        allSums = scanl' go ([], 0)
+          where
+            go (a, b) p = (p : a, b + p)
+
+result :: ([Int], Int)
+result = maximumBy go . filter (isPrime . snd) $ candidates
+  where
+    go :: ([Int], Int) -> ([Int], Int) -> Ordering
+    go = compareFstLength `whenEQ` comparing snd
+      where
+        compareFstLength a b = compareLength (fst a) (fst b)
+
+-- reversePyramidGen :: Int -> [Int] -> [[Int]]
+-- -- Generates a reverse pyramid of consecutive sums
+-- -- with base at the head of the list.
+-- -- Only works with sorted lists but the precondition is not checked.
+-- reversePyramidGen n l = scanl' nextLevel [l]
+--   where
+--     nextLevel :: [Int] -> [Int] -> [[Int]]
+--     nextLevel [] _ = []
+--     nextLevel a (_ : bs) = a : nextLevel result bs
+--       where
+--         result = filter (<= n) (zipWith (+) a bs)
+
+-- search :: Int -> [Int]
+-- search n = search' pyramid (even $ V.length primeV)
+--   where
+--     primeL = takeWhile (<=n) primes
+--     primeV = V.fromList primeL
+--     -- primeS = IS.fromDistinctAscList primeL
+--     pyramid = pyramidGen primeL
+--
+--     search' :: [[Int]] -> Bool -> [Int]
+--     search' [] _ = []
+--     search' (x:xs) b
+--       | b            = if isPrime (head x) then [head x] else search' xs (not b)
+--       | null results = search' xs (not b)
+--       | otherwise    = results
+--       where
+--         -- isPrime s = s `IS.member` primeS
+--         isPrime s = s `elemOrdV` primeV
+--         isGood s = s <= n && isPrime s
+--         results = filter isGood x
+--
+--
+-- pyramidGen :: [Int] -> [[Int]]
+-- pyramidGen l = nextLevel [sum l] (reverse l)
+--   where
+--     nextLevel :: [Int] -> [Int] -> [[Int]]
+--     nextLevel _        []     = []
+--     nextLevel al@(a:_) (b:bs) = al : nextLevel (result) bs
+--       where result = (a-b) : zipWith (-) al l
+
+-- search :: Int -> V.Vector Int
+-- search n = search' pyramid (even $ V.length primeV)
+--   where
+--     primeL = takeWhile (<=n) primes
+--     primeV = V.fromList primeL
+--     -- primeS = IS.fromDistinctAscList primeL
+--     pyramid = pyramidGen primeV
+--
+--     search' :: [V.Vector Int] -> Bool -> V.Vector Int
+--     search' []     _ = V.empty
+--     search' (x:xs) b
+--       | b              = if isPrime (V.head x) then V.singleton (V.head x) else search' xs (not b)
+--       | V.null results = search' xs (not b)
+--       | otherwise      = results
+--       where
+--         -- isPrime s = s `IS.member` primeS
+--         isPrime s = s `elemOrdV` primeV
+--         isGood s = s <= n && isPrime s
+--         results = V.filter isGood x
+--
+--
+-- pyramidGen :: V.Vector Int -> [V.Vector Int]
+-- pyramidGen v = take lenV $ iterate nextLayer (V.singleton (V.sum v))
+--   where
+--     lenV = V.length v
+--     nextLayer :: V.Vector Int -> V.Vector Int
+--     nextLayer w
+--       | lenV == lenW = w
+--       | otherwise    = V.generate (V.length w + 1) element
+--       where
+--         lenW = V.length w
+--         element 0 = w V.! 0 - v V.! (lenV - lenW)
+--         element n = w V.! (n-1) - v V.! (n-1)
+
+-- Uses too much memory as it generates the entire pyramid
+-- pyramidGen :: V.Vector Int -> [V.Vector Int]
+-- pyramidGen v = pyramidGen' [v] (v, V.tail v)
+--   where
+--     pyramidGen' :: [V.Vector Int] -> (V.Vector Int, V.Vector Int) -> [V.Vector Int]
+--     pyramidGen' acc (u, w)
+--       | V.null w  = acc
+--       | otherwise = pyramidGen' (result : acc) (result, V.tail w)
+--       where
+--         result = V.zipWith (+) u w
+
+main :: IO ()
+main = print result -- == 997651
+-- main = print $ search 500000 -- == 499607
